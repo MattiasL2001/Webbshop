@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="Scripts/loadAds.js" defer></script>
+    <link rel="stylesheet" type="text/CSS" href="CSS/styling.CSS">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="img/shopping-cart_3_white.png" />
+    <title>Webbshop</title>
+</head>
+
+<body>
+    <header>
+        <div id="logo">
+            <a href="#">Webbshopen.se</a>
+        </div>
+    </header>
+
+    <nav>
+        <div id="nav-left">
+            <a href="" onmousedown="navLeftClick('shop')" onmouseout="navLeftOut('shop')" id="shop">SHOP</a>
+            <a href="" onmousedown="navLeftClick('support')" onmouseout="navLeftOut('support')" id="support">SUPPORT</a>
+        </div>
+
+        <div id="nav-right">
+            <div id="search">
+                <input type="search-box" placeholder=" SÖK" id="input-box">
+                <input type="submit" value="" id="input-logo">
+            </div>
+            <button>
+                <img src="img/shopping-cart_3_white.png" alt="" id="cart">
+            </button>
+            <button>
+                <img src="img/char.png" alt="" id="char">
+            </button>
+            </button>
+            <img src="img/menu-icon.png" alt="" id="menu-icon">
+            </button>
+        </div>
+        </div>
+    </nav>
+
+    <div id="sidebar"></div>
+
+    <div id="searchArticles">
+
+        <div id="filter">
+            FILTER BY
+
+            <div class="select">
+                <select name="" id="">
+                    <option value="">
+                        All
+                    </option>
+                    <option value="">
+                        Option 1
+                    </option>
+                    <option value="">
+                        Option 2
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div id="sort">
+            SORT BY
+
+            <div class="select">
+                <select name="" id="">
+                    <option value="">
+                        Price, lowest first
+                    </option>
+                    <option value="">
+                        Price, highest first
+                    </option>
+                    <option value="">
+                        Date, newest first
+                    </option>
+                    <option value="">
+                        Date, oldest first
+                    </option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+    <section id="articles">
+    </section>
+
+    <footer>
+        <div class="content">
+            <p>
+                Mattias Lindblad <br>
+                EST. 2021
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

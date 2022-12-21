@@ -1,0 +1,384 @@
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: MuseoModerno, sans-serif;
+}
+
+header {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    background-color: coral;
+    border: 2px;
+    border-style: none none solid none;
+    border-color: rgb(250, 118, 70);
+    animation-name: anim;
+    animation-direction: normal;
+    animation-duration: .2s;
+}
+
+#logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+#logo a {
+    display: flex;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 20pt;
+}
+
+nav {
+    position: absolute;
+    top: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 60px;
+    background-color: coral;
+}
+
+nav div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    width: 60%;
+}
+
+#nav-left {
+    display: flex;
+    justify-content: left;
+    margin-left: 10%;
+}
+
+#nav-left a {
+    height: 100%;
+    width: 100px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    margin-right: 10px;
+}
+
+#nav-left a:hover {
+    border-style: none none solid none;
+    border-width: 5px;
+    border-color: rgb(255, 255, 255);
+}
+
+#nav-right {
+    margin-right: 10%;
+}
+
+#search {
+    margin-right: 20px;
+    height: 35px;
+    width: 50%;
+}
+
+#input-box {
+    display: flex;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    background-position: 98% center;
+    padding-left: 5px;
+}
+
+#input-box::-webkit-search-decoration,
+#input-box::-webkit-search-cancel-button,
+#input-box::-webkit-search-results-button,
+#input-box::-webkit-search-results-decoration,
+#input-box::-ms-clear,
+#input-box::-ms-reveal {
+    display: none;
+}
+
+#input-logo {
+    position: absolute;
+    border: none;
+    outline: none;
+    width: 25px;
+    height: 25px;
+    background-image: url("C:/Users/Matti/OneDrive/Dokument/Visual Studio Code/Webbshop/v1.3/img/search_black.png");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: 100%;
+    margin-right: 5px;
+}
+
+#input-logo:hover {
+    cursor: pointer;
+}
+
+#input-logo:active {
+    outline: none;
+}
+
+nav div a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav div button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+nav div a:hover, nav div button:hover {
+    cursor: pointer;
+}
+
+#cart {
+    margin-left: 0px;
+    width: 37px;
+    height: 22px;
+}
+
+#cart:hover {
+    transition: .2s;
+    filter: invert(100%);
+}
+
+#char {
+    margin-left: 20px;
+    width: 37px;
+    height: 22px;
+}
+
+#char:hover {
+    transition: .2s;
+    filter: invert(100%);
+}
+
+#menu-icon {
+    display: none;
+}
+
+#menu-icon:hover {
+    transition: .2s;
+    filter: invert(100%);
+}
+
+#sidebar {
+    display: none;
+    position: fixed;
+    margin-right: 0;
+    bottom: 0;
+    width: 100%;
+    height: calc(100vh - 60px - 90px);
+    background-color: rgba(255, 100, 70, .9)
+}
+
+.content {
+    margin: auto;
+    width: 80%;
+}
+
+body {
+    position: relative;
+    background-color: rgb(245, 245, 245);
+}
+
+#searchArticles {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: auto;
+    margin-top: 150px;
+    margin-bottom: 50px;
+    width: 80%;
+    height: 100px;
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: coral;
+}
+
+.select select {
+    border: none;
+    outline: none;
+}
+
+#filter {
+    margin-right: 25px;
+}
+
+#articles {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    min-height: calc(100vh - 60px - 150px);
+    width: 80%;
+}
+
+.row {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    height: 350px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    flex-basis: calc(100% / 3);
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.item:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.item img {
+    height: 70%;
+    width: calc(350px * 0.7);
+    margin-top: 25px;
+    background-image: url("C:/Users/Matti/OneDrive/Dokument/Visual Studio Code/Webbshop/v1.3/img/watch.jpg");
+    background-size: 100%;
+    background-position: center;
+}
+
+.item h1 {
+    display: flex;
+    justify-content: center;
+    width: 75%;
+}
+
+.item p {
+    display: flex;
+    justify-content: center;
+    width: 75%;
+}
+
+#LoginRegister {
+    margin: auto;
+    width: 50%;
+    height: 600px;
+    margin-top: 20px;
+    margin-bottom: 17px;
+    background-color: coral;
+}
+
+footer {
+    display: flex;
+    justify-content: left;
+    align-items: flex-end;
+    bottom: 0;
+    position: relative;
+    width: 100%;
+    height: 175px;
+    background-color: rgb(43, 43, 43);
+    color: rgb(245, 245, 245);
+}
+
+@media only screen and (max-width: 600px) {
+    #cart {
+        display: none;
+    }
+
+    #char {
+        display: none;
+    }
+
+    #menu-icon {
+        display: flex;
+        width: 37px;
+        height: 22px;
+        margin-right: 20px;
+    }
+
+    #nav-left {
+        display: none;
+    }
+
+    #nav-right {
+        width: 100%;
+        margin-right: 0%;
+        margin-left: 20px;
+    }
+
+    #search {
+        height: 35px;
+        width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 950px) {
+      .item {
+        flex-basis: calc(100% / 2);
+      }
+
+      .item img {
+        height: 65%;
+        width: calc(350px * 0.65);
+        margin-top: 25px;
+      }
+}
+
+@media only screen and (max-width: 599px) {
+    .item {
+      flex-basis: calc(100%);
+    }
+
+    .item img {
+      height: 100%;
+      width: calc(350px * 1);
+      margin-top: 25px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .item img {
+      height: 90%;
+      width: calc(350px * 0.9);
+      margin-top: 25px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .item img {
+      height: 70%;
+      width: calc(350px * 0.7);
+      margin-top: 25px;
+    }
+}
+
+@media only screen and (max-width: 335px) {
+    .item img {
+      height: 60%;
+      width: calc(350px * 0.6);
+      margin-top: 25px;
+    }
+
+    #filter, #sort {
+        font-size: 12px;
+    }
+
+    .select select {
+        font-size: 10px;
+    }
+}
