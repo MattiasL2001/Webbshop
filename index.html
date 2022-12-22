@@ -7,25 +7,25 @@
     <link rel="stylesheet" type="text/CSS" href="CSS/styling.CSS">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="img/shopping-cart_3_white.png" />
-    <title>Webbshop</title>
+    <title>Webstore</title>
 </head>
 
 <body>
     <header>
         <div id="logo">
-            <a href="#">Webbshopen.se</a>
+            <a href="#">Webstore.com</a>
         </div>
     </header>
 
     <nav>
         <div id="nav-left">
-            <a href="" onmousedown="navLeftClick('shop')" onmouseout="navLeftOut('shop')" id="shop">SHOP</a>
-            <a href="" onmousedown="navLeftClick('support')" onmouseout="navLeftOut('support')" id="support">SUPPORT</a>
+            <a href="index.html" onmousedown="navLeftClick('shop')" onmouseout="navLeftOut('shop')" id="shop">SHOP</a>
+            <a href="support.html" onmousedown="navLeftClick('support')" onmouseout="navLeftOut('support')" id="support">SUPPORT</a>
         </div>
 
         <div id="nav-right">
             <div id="search">
-                <input type="search-box" placeholder=" SÖK" id="input-box">
+                <input type="search-box" placeholder=" SEARCH" id="input-box">
                 <input type="submit" value="" id="input-logo">
             </div>
             <button>
@@ -45,44 +45,83 @@
 
     <div id="searchArticles">
 
-        <div id="filter">
-            FILTER BY
+        <select name="" class="filter">
+            <option value="">
+                Filter By Gender
+            </option>
+            <option value="">
+                Men
+            </option>
+            <option value="">
+               Women 
+            </option>
+        </select>
 
-            <div class="select">
-                <select name="" id="">
-                    <option value="">
-                        All
-                    </option>
-                    <option value="">
-                        Option 1
-                    </option>
-                    <option value="">
-                        Option 2
-                    </option>
-                </select>
-            </div>
-        </div>
+        <select name="" class="filter">
+            <option value="">
+                Filter By Product
+            </option>
+            <option value="">
+                Clothing
+            </option>
+            <option value="">
+               Accessories 
+            </option>
+        </select>
 
-        <div id="sort">
-            SORT BY
+        <select name="" class="filter">
+            <option value="">
+                Filter By Color
+            </option>
+            <option value="">
+                White
+            </option>
+            <option value="">
+                Black
+            </option>
+            <option value="">
+                Red
+            </option>
+            <option value="">
+                Green
+            </option>
+            <option value="">
+                Yellow
+            </option>
+            <option value="">
+                Orange
+            </option>
+            <option value="">
+                Blue
+            </option>
+            <option value="">
+                Pink
+            </option>
+            <option value="">
+                Purple
+            </option>
+            <option value="">
+                Brown
+            </option>
+        </select>
 
-            <div class="select">
-                <select name="" id="">
-                    <option value="">
-                        Price, lowest first
-                    </option>
-                    <option value="">
-                        Price, highest first
-                    </option>
-                    <option value="">
-                        Date, newest first
-                    </option>
-                    <option value="">
-                        Date, oldest first
-                    </option>
-                </select>
-            </div>
-        </div>
+        <select name="" class="filter">
+            <option value="">
+                SORT BY
+            </option>
+            <option value="">
+                Price, lowest first
+            </option>
+            <option value="">
+                Price, highest first
+            </option>
+            <option value="">
+                Date, newest first
+            </option>
+            <option value="">
+                Date, oldest first
+            </option>
+        </select>
 
     </div>
 

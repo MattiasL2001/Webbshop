@@ -1,3 +1,22 @@
+function Ad(name, category, price, color, image) {
+    this.name = name
+    this.category = category
+    this.price = price
+    this.color = color
+    this.image = image
+}
+
+let shirt = new Ad("T-Shirt", "Clothing", "14,99$", "White", "src")
+let hoodie = new Ad("Hoodie", "Clothing", "35,99$", "Black", "src")
+let hat = new Ad("Hat", "Clothing", "19,99$", "Gray", "src")
+let watch = new Ad("Watch", "Accessories", "59,99$", "Black", "src")
+
+let items = [
+]
+
+items.push(shirt, hoodie, hat, watch)
+console.log(items[0].color)
+
 //adds a scroll event to listen to, makes the window.scroll work
 //creates a funcion that takes in the event to listen for as a parameter
 window.addEventListener("scroll", () => {
@@ -82,7 +101,7 @@ function resize() {
         objPerCol = 3
 
         searchArticles = document.getElementById("searchArticles")
-        searchArticles.style.justifyContent = "flex-end"
+        searchArticles.style.justifyContent = "space-evenly"
     }
     else if (document.querySelector("body").clientWidth >= 600 &&
         document.querySelector("body").clientWidth < 950) {
@@ -115,7 +134,9 @@ window.onresize = () => {
 loadArticles()
 
 function loadArticles() {
-    let numOfItems = 7
+    console.clear
+
+    let numOfItems = 4
 
     if (document.querySelectorAll(".row") != null && document.querySelectorAll(".row") != undefined) {
         Array.prototype.forEach.call(document.querySelectorAll(".row"), function (node) {
@@ -148,13 +169,46 @@ function loadArticles() {
         h = document.createElement("h1")
         h.textContent = "Product Name"
         item.appendChild(h)
+        d = document.createElement("div")
+        item.appendChild(d)
         p = document.createElement("p")
-        p.textContent = "Price"
-        item.appendChild(p)
+        p.textContent = "Price 19,99$"
+        p.id = "price" + (i + 1)
+        cd = document.createElement("div")
+        cd.id = "colorDiv" + (i + 1)
+        c = document.createElement("div")
+        c.id = "color" + (i + 1)
+        cd.appendChild(c)
+        d.appendChild(p)
+        d.appendChild(cd)
+        d.className = "colorPrice"
         document.getElementById("row" + (rowIndex - 1)).appendChild(item)
-    }
-    rows = document.getElementsByClassName("row")
 
+        // document.querySelector("#Color" + (i + 1)).querySelector("div").style.backgroundColor = "Blue"
+        // document.getElementById("Color" + (i + 1)).querySelector("div").style.backgroundColor = "LimeGreen"
+        // document.getElementById("Color" + (i + 1)).querySelector("div").style.width = "50%"
+        // document.getElementById("Color" + (i + 1)).querySelector("div").style.height = "100%"
+        // document.getElementById("Color" + (i + 1)).style.display = "flex"
+        document.querySelectorAll(".colorPrice")[i].style.display = "flex"
+        document.querySelectorAll(".colorPrice")[i].style.width = "75%"
+        document.querySelectorAll(".colorPrice")[i].style.height = "30px"
+        document.getElementById("price" + (i + 1)).style.width = "50%"
+        document.getElementById("colorDiv" + (i + 1)).style.width = "50%"
+        document.getElementById("colorDiv" + (i + 1)).style.display = "flex"
+        document.getElementById("colorDiv" + (i + 1)).style.justifyContent = "center"
+        document.getElementById("color" + (i + 1)).style.width = "25px"
+        document.getElementById("color" + (i + 1)).style.height = "25px"
+        document.getElementById("color" + (i + 1)).style.borderRadius = "100%"
+        document.getElementById("color" + (i + 1)).style.borderColor = "gray"
+        document.getElementById("color" + (i + 1)).style.borderStyle = "solid"
+        document.getElementById("color" + (i + 1)).style.borderWidth = "1px"
+
+        document.getElementById("color" + (i + 1)).style.backgroundColor = items[i].color
+
+        console.log("item color: " + items[i].color)
+    }
+
+    rows = document.getElementsByClassName("row")
     for (i = 0; i < rows.length; i++) {
 
         if (objPerCol == 1) {
