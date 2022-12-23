@@ -283,10 +283,12 @@ select {
     width: 75%;
 }
 
-.item p {
-    display: flex;
-    justify-content: center;
-    width: 75%;
+.buyButton {
+    background-color: rgb(30, 65, 220);
+}
+
+.buyButton:hover {
+    background-color: rgb(20, 45, 185);
 }
 
 #LoginRegister {

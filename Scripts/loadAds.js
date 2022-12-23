@@ -172,30 +172,49 @@ function loadArticles() {
         d = document.createElement("div")
         item.appendChild(d)
         p = document.createElement("p")
-        p.textContent = "Price 19,99$"
+        p.textContent = "19,99$"
+        p.style.textAlign = "center"
         p.id = "price" + (i + 1)
+        p.style.width = "49%"
         cd = document.createElement("div")
         cd.id = "colorDiv" + (i + 1)
+        s = document.createElement("p")
+        s.style.width = "2%"
+        s.textContent = "|"
+        s.style.color = "black"
+        p2 = document.createElement("p")
+        p2.textContent = "Color: "
+        p2.style.color = "black"
+        cd.appendChild(p2)
         c = document.createElement("div")
         c.id = "color" + (i + 1)
+        b = document.createElement("div")
+        b.className = "buyButton"
+        b.style.marginBottom = "25px"
+        b.style.width = "60%"
+        b.style.height = "35px"
+        b.style.display = "flex"
+        b.style.justifyContent = "center"
+        bt = document.createElement("h2")
+        bt.style.color = "white"
+        bt.innerHTML = "Buy"
+        console.log("item DOM: " + item)
+        item.appendChild(b)
+        b.appendChild(bt)
         cd.appendChild(c)
         d.appendChild(p)
+        d.appendChild(s)
         d.appendChild(cd)
         d.className = "colorPrice"
         document.getElementById("row" + (rowIndex - 1)).appendChild(item)
 
-        // document.querySelector("#Color" + (i + 1)).querySelector("div").style.backgroundColor = "Blue"
-        // document.getElementById("Color" + (i + 1)).querySelector("div").style.backgroundColor = "LimeGreen"
-        // document.getElementById("Color" + (i + 1)).querySelector("div").style.width = "50%"
-        // document.getElementById("Color" + (i + 1)).querySelector("div").style.height = "100%"
-        // document.getElementById("Color" + (i + 1)).style.display = "flex"
         document.querySelectorAll(".colorPrice")[i].style.display = "flex"
-        document.querySelectorAll(".colorPrice")[i].style.width = "75%"
         document.querySelectorAll(".colorPrice")[i].style.height = "30px"
-        document.getElementById("price" + (i + 1)).style.width = "50%"
-        document.getElementById("colorDiv" + (i + 1)).style.width = "50%"
+        document.querySelectorAll(".colorPrice")[i].style.width = "75%"
+        document.getElementById("colorDiv" + (i + 1)).style.width = "49%"
         document.getElementById("colorDiv" + (i + 1)).style.display = "flex"
         document.getElementById("colorDiv" + (i + 1)).style.justifyContent = "center"
+        document.getElementById("colorDiv" + (i + 1)).style.marginBottom = "10px"
         document.getElementById("color" + (i + 1)).style.width = "25px"
         document.getElementById("color" + (i + 1)).style.height = "25px"
         document.getElementById("color" + (i + 1)).style.borderRadius = "100%"
