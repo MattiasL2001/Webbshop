@@ -272,7 +272,6 @@ select {
     height: 70%;
     width: calc(350px * 0.7);
     margin-top: 25px;
-    background-image: url("C:/Users/Matti/OneDrive/Dokument/Visual Studio Code/Webbshop/v1.3/img/watch.jpg");
     background-size: 100%;
     background-position: center;
 }

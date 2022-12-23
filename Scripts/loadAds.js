@@ -164,7 +164,9 @@ function loadArticles() {
 
         item = document.createElement("div")
         item.className = "item"
+        item.id = "item" + (i + 1)
         img = document.createElement("img")
+        img.id = "img" + (i + 1)
         item.appendChild(img)
         h = document.createElement("h1")
         h.textContent = "Product Name"
@@ -222,6 +224,9 @@ function loadArticles() {
         document.getElementById("color" + (i + 1)).style.borderStyle = "solid"
         document.getElementById("color" + (i + 1)).style.borderWidth = "1px"
 
+        document.getElementById("item" + (i + 1)).querySelector("h1").innerHTML = items[i].name
+        document.getElementById("item" + (i + 1)).querySelector("p").innerHTML = items[i].price
+        document.getElementById("img" + (i + 1)).style.backgroundImage = "url('img/" + items[i].name  + ".png')"
         document.getElementById("color" + (i + 1)).style.backgroundColor = items[i].color
 
         console.log("item color: " + items[i].color)
