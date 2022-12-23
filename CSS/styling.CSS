@@ -293,6 +293,10 @@ select {
     background-color: rgb(232, 116, 74);
 }
 
+.buyButton:active {
+    background-color: rgb(216, 107, 68);
+}
+
 #loginMenu {
     display: flex;
     justify-content: center;
