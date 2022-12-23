@@ -195,6 +195,9 @@ nav div a:hover, nav div button:hover {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     position: relative;
     background-color: rgb(245, 245, 245);
 }
@@ -283,28 +286,92 @@ select {
 }
 
 .buyButton {
-    background-color: rgb(30, 65, 220);
+    background-color: coral;
 }
 
 .buyButton:hover {
-    background-color: rgb(20, 45, 185);
+    background-color: rgb(232, 116, 74);
 }
 
-#LoginRegister {
+#loginMenu {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    right: 10%;
+    width: 250px;
+    height: 170px;
+    border-width: 2px;
+    border-style: solid;
+    border-top: 0;
+    border-color: coral;
+    background-color: rgb(255, 166, 133);
+}
+
+#loginMenu div {
+    display: flex;
+    justify-content: center;
+}
+
+#loginMenu div div {
+    display: block;
+    width: 80%;
+    margin-top: 10px;
+}
+
+#loginMenu div div div {
+    display: flex;
+    width: 100%;
+    height: 25px;
+    justify-content: center;
+}
+
+#loginMenu div div input, #loginMenu div div textarea {
+    border: none;
+    outline: none;
+}
+
+#registerText {
+    font-size: 12px;
+    text-decoration: none;
+}
+
+#loginRegister {
     margin: auto;
-    width: 50%;
-    height: 600px;
+    width: 30%;
+    height: 300px;
     margin-top: 20px;
     margin-bottom: 17px;
     background-color: coral;
+}
+
+#loginRegister div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 25px;
+}
+
+#loginRegister div input {
+    width: 75%;
+    border: none;
+    outline: none;
+}
+
+#passwordLogin {
+    padding-top: 10px;
+}
+
+#loginRegister div input[type=button] {
+    background-color: white;
+    height: 30px;
+    width: 150px;
 }
 
 footer {
     display: flex;
     justify-content: left;
     align-items: flex-end;
-    bottom: 0;
-    position: relative;
+    margin-top: auto;
     width: 100%;
     height: 175px;
     background-color: rgb(43, 43, 43);

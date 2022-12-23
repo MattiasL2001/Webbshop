@@ -15,7 +15,33 @@ let items = [
 ]
 
 items.push(shirt, hoodie, hat, watch)
-console.log(items[0].color)
+
+let loginMenuClicked = false
+document.getElementById("loginMenu").style.display = "none"
+
+// for (i = 0; i < document.getElementById("loginMenu").children.length; i++) {
+//     document.getElementById("loginMenu").children[0].children[i].style.display = "flex"
+//     document.getElementById("loginMenu").children[0].children[i].style.backgroundColor = "brown"
+//     document.getElementById("loginMenu").children[0].children[i].style.justifyContent = "center"
+//     document.getElementById("loginMenu").children[0].children[i].style.alignItems = "center"
+//     document.getElementById("loginMenu").children[0].children[i].style.width = "100%"
+//     document.getElementById("loginMenu").children[0].children[i].style.marginTop = 300/13 + "px"
+
+//     if (document.getElementById("loginMenu").children[i-1] != undefined && document.getElementById("loginMenu").children[i -1].querySelector("p") != undefined) {
+//         document.getElementById("loginMenu").children[i].style.marginTop = "0px"
+//     }
+// }
+
+let loginRegister = document.getElementById("char").onclick = function() {
+    if (!loginMenuClicked) {
+        document.getElementById("loginMenu").style.display = "block"
+        loginMenuClicked = true
+    }
+    else {
+        document.getElementById("loginMenu").style.display = "none"
+        loginMenuClicked = false
+    }
+}
 
 //adds a scroll event to listen to, makes the window.scroll work
 //creates a funcion that takes in the event to listen for as a parameter
@@ -196,11 +222,11 @@ function loadArticles() {
         b.style.width = "60%"
         b.style.height = "35px"
         b.style.display = "flex"
+        b.style.alignItems = "center"
         b.style.justifyContent = "center"
         bt = document.createElement("h2")
         bt.style.color = "white"
         bt.innerHTML = "Buy"
-        console.log("item DOM: " + item)
         item.appendChild(b)
         b.appendChild(bt)
         cd.appendChild(c)
@@ -228,8 +254,6 @@ function loadArticles() {
         document.getElementById("item" + (i + 1)).querySelector("p").innerHTML = items[i].price
         document.getElementById("img" + (i + 1)).style.backgroundImage = "url('img/" + items[i].name  + ".png')"
         document.getElementById("color" + (i + 1)).style.backgroundColor = items[i].color
-
-        console.log("item color: " + items[i].color)
     }
 
     rows = document.getElementsByClassName("row")

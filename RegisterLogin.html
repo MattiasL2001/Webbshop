@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <script src="" defer></script>
+    <script src="Scripts/loadAds.js" defer></script>
     <link rel="stylesheet" type="text/CSS" href="CSS/styling.CSS">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="img/shopping-cart_3_white.png" />
@@ -19,8 +19,8 @@
 
     <nav>
         <div id="nav-left">
-            <a href="" onmousedown="navLeftClick('shop')" onmouseout="navLeftOut('shop')" id="shop">SHOP</a>
-            <a href="" onmousedown="navLeftClick('support')" onmouseout="navLeftOut('support')" id="support">SUPPORT</a>
+            <a href="index.html" onmousedown="navLeftClick('shop')" onmouseout="navLeftOut('shop')" id="shop">SHOP</a>
+            <a href="support.html" onmousedown="navLeftClick('support')" onmouseout="navLeftOut('support')" id="support">SUPPORT</a>
         </div>
 
         <div id="nav-right">
@@ -41,10 +41,54 @@
         </div>
     </nav>
 
+    <div id="loginMenu">
+        <div>
+            <div>
+                <div>
+                    <p>
+                        Login:
+                    </p>
+                </div>
+                <div>
+                    <input type="text" placeholder="E-Mail">
+                </div>
+                <div>
+                    <input type="text" placeholder="Password">
+                </div>
+                <div>
+                    <a href="RegisterLogin.html" id="registerText">
+                        New? Register
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="sidebar"></div>
 
-    <article id="LoginRegister">
-
+    <article id="loginRegister">
+        <br>
+        <div>
+            <h2>Register</h2>
+        </div>
+        <br>
+        <div>
+            <input type="text" placeholder="E-Mail">
+        </div>
+        <div id="passwordLogin">
+            <input type="text" placeholder="Password">
+        </div>
+        <br>
+        <div>
+            Birthdate
+        </div>
+        <div>
+            <input type="date">
+        </div>
+        <br>
+        <div>
+            <input type="button" value="Register Now">
+        </div>
     </article>
 
     <footer>
