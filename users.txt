@@ -1,0 +1,15 @@
+{
+    "mattias-lindblad2001@hotmail.com",
+    "123",
+    "Mattias",
+    "Lindblad",
+    "2001-07-09"
+},
+
+{
+    "anna.lundström@hotmail.se",
+    "123",
+    "Anna",
+    "Lundström",
+    "1999-01-04"
+}

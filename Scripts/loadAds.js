@@ -27,6 +27,11 @@ items.push(shirt, hoodie, hat, watch)
 let user0 = new User("mattias-lindblad2001@hotmail.com", "123", "Mattias", "Lindblad", "2001-07-09")
 let user1 = new User("anna.lundström@hotmail.se", "123", "Anna", "Lundström", "1999-01-04")
 
+  // outputs the content of the text file
+fetch('users.txt')
+  .then(response => response.text())
+  .then(text => console.log(text))
+
 let users = [
 
 ]
@@ -37,12 +42,25 @@ users.push(user1)
 let loginMenuClicked = false
 document.getElementById("loginMenu").style.display = "none"
 
-let registerButton = document.getElementById("registerButton").onclick = function() {
-    if (document.getElementById("passwordLogin").querySelector("input").value.length >= 5) {
-        console("password is good")
-    }
-    else {
-        window.alert("Passwordn eeds to be at least 5 characters!")
+if (document.getElementById("registerButton") != undefined) {
+    
+    document.getElementById("registerButton").onclick = function() {
+        let allDivs = document.getElementById("loginRegister").querySelectorAll("div")
+        for (i = 0; i < allDivs.length; i++) {
+            if (allDivs[i].querySelector("input") != null && allDivs[i].querySelector("input").value == "") {
+                let input = allDivs[i].querySelector("input")
+                console.log(input)
+                input.style.borderStyle = "solid"
+                input.style.borderWidth = "3px"
+                input.style.borderColor = "red"
+                input.style.transition = "border-color 3s"
+                window.alert("field can not be empty!")
+            }
+        }
+
+        if (document.getElementById("passwordLogin").querySelector("input").value.length < 5) {
+            window.alert("Passwordn needs to be at least 5 characters!")
+        }
     }
 }
 
