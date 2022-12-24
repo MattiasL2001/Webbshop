@@ -6,6 +6,14 @@ function Ad(name, category, price, color, image) {
     this.image = image
 }
 
+function User(email, password, firstName, surName, birthDate) {
+    this.email = email
+    this.password = password
+    this.firstName = firstName
+    this.surName = surName
+    this.birthDate = birthDate
+}
+
 let shirt = new Ad("T-Shirt", "Clothing", "14,99$", "White", "src")
 let hoodie = new Ad("Hoodie", "Clothing", "35,99$", "Black", "src")
 let hat = new Ad("Hat", "Clothing", "19,99$", "Gray", "src")
@@ -16,21 +24,27 @@ let items = [
 
 items.push(shirt, hoodie, hat, watch)
 
+let user0 = new User("mattias-lindblad2001@hotmail.com", "123", "Mattias", "Lindblad", "2001-07-09")
+let user1 = new User("anna.lundström@hotmail.se", "123", "Anna", "Lundström", "1999-01-04")
+
+let users = [
+
+]
+
+users.push(user0)
+users.push(user1)
+
 let loginMenuClicked = false
 document.getElementById("loginMenu").style.display = "none"
 
-// for (i = 0; i < document.getElementById("loginMenu").children.length; i++) {
-//     document.getElementById("loginMenu").children[0].children[i].style.display = "flex"
-//     document.getElementById("loginMenu").children[0].children[i].style.backgroundColor = "brown"
-//     document.getElementById("loginMenu").children[0].children[i].style.justifyContent = "center"
-//     document.getElementById("loginMenu").children[0].children[i].style.alignItems = "center"
-//     document.getElementById("loginMenu").children[0].children[i].style.width = "100%"
-//     document.getElementById("loginMenu").children[0].children[i].style.marginTop = 300/13 + "px"
-
-//     if (document.getElementById("loginMenu").children[i-1] != undefined && document.getElementById("loginMenu").children[i -1].querySelector("p") != undefined) {
-//         document.getElementById("loginMenu").children[i].style.marginTop = "0px"
-//     }
-// }
+let registerButton = document.getElementById("registerButton").onclick = function() {
+    if (document.getElementById("passwordLogin").querySelector("input").value.length >= 5) {
+        console("password is good")
+    }
+    else {
+        window.alert("Passwordn eeds to be at least 5 characters!")
+    }
+}
 
 let loginRegister = document.getElementById("char").onclick = function() {
     if (!loginMenuClicked) {
@@ -43,12 +57,60 @@ let loginRegister = document.getElementById("char").onclick = function() {
     }
 }
 
+function loggingIn(firstName, surName) {
+    console.log("User: " + firstName + " " + surName)
+    console.log(document.getElementById("loginMenu").querySelectorAll("div"))
+    if (loggedIn) {
+        console.log("logged out")
+        for (i = 0; i < document.getElementById("loginMenu").querySelectorAll("div").length; i++) {
+            document.getElementById("loginMenu").querySelectorAll("div")[i].style.display = "flex"
+        }
+        document.getElementById("loginMenu").querySelectorAll("div")[7].style.height = "200px"
+        document.getElementById("loginMenu").querySelectorAll("div")[7].style.display = "block"
+        document.getElementById("logOut").style.display = "flex"
+        document.getElementById("logOut").style.width = "100%"
+        document.getElementById("logOut").style.height = "20px"
+        document.getElementById("logOut").style.backgroundColor = "brown"
+        loggedIn = false
+    }
+    else {
+        console.log("logged in")
+        for (i = 0; i < document.getElementById("loginMenu").querySelectorAll("div").length; i++) {
+            document.getElementById("loginMenu").querySelectorAll("div")[i].style.display = "none"
+        }
+        document.getElementById("loginMenu").querySelectorAll("div")[7].style.height = "120px"
+        document.getElementById("loginMenu").querySelectorAll("div")[0].style.display = "flex"
+        document.getElementById("loginMenu").querySelectorAll("div")[1].style.display = "flex"
+        document.getElementById("loginMenu").querySelectorAll("div")[1].style.flexDirection = "column"
+        document.getElementById("loginMenu").querySelectorAll("div")[7].style.display = "flex"
+        document.getElementById("loginMenu").querySelectorAll("div")[7].style.flexDirection = "column"
+        document.getElementById("loginMenu").querySelectorAll("div")[8].style.display = "flex"
+        document.getElementById("loginMenu").querySelectorAll("div")[9].style.display = "flex"
+        document.getElementById("loginMenu").querySelectorAll("div")[9].textContent = firstName + " " + surName
+        document.getElementById("loginMenu").querySelectorAll("div")[10].style.display = "flex"
+        loggedIn = true
+    }
+}
+
+let loggedIn = false
+document.getElementById("loginButton").onclick = function() {
+    for(i = 0; i < users.length; i++) {
+        email = document.getElementById("email").value
+        password = document.getElementById("password").value
+        if (email == users[i].email && password == users[i].password) {
+            loggingIn(users[i].firstName, users[i].surName)
+        }
+    }
+}
+
 //adds a scroll event to listen to, makes the window.scroll work
 //creates a funcion that takes in the event to listen for as a parameter
 window.addEventListener("scroll", () => {
 
     //gets the nav-element from the html
     nav = document.querySelector("nav")
+
+    let isClicked = false
 
     if (isClicked) {
         nav.style.transition = "0s"
@@ -60,23 +122,23 @@ window.addEventListener("scroll", () => {
     }
     else if (!isClicked) {
 
-        if (window.scrollY > 187) {
+        if (window.scrollY > 152) {
             nav.style.position = "fixed"
             nav.style.top = "0px"
             nav.style.transition = "0s"
+            document.getElementById("loginMenu").style.marginTop = (60 + window.scrollY) + "px"
         }
-        else if (window.scrollY <= 187) {
+        else if (window.scrollY <= 152) {
             nav.style.position = "relative"
             nav.style.top = "0px"
             nav.style.transition = ".2s"
+            document.getElementById("loginMenu").style.marginTop = "152px"
         }
     }
 })
 
 //adjusts the height of the "sidebar" div in the html
 sidebar = document.getElementById("sidebar").style.height = "calc(100vh - 60px + 2px)"
-
-let isClicked = false
 
 //adds an event listener that will run the mobileMenu function once the menu "menu-icon" is clicked
 document.getElementById("menu-icon").addEventListener("click", mobileMenu)

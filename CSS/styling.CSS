@@ -301,9 +301,10 @@ select {
     display: flex;
     justify-content: center;
     position: absolute;
+    margin-top: 152px;
     right: 10%;
     width: 250px;
-    height: 170px;
+    height: 200px;
     border-width: 2px;
     border-style: solid;
     border-top: 0;
@@ -329,9 +330,23 @@ select {
     justify-content: center;
 }
 
+#loginMenu div div div input[type=button] {
+    background-color: aqua;
+    width: 100%;
+}
+
+#loginMenu div div div input[type=button]:hover {
+    background-color: rgb(0, 242, 242);
+}
+
+#loginMenu div div div input[type=button]:active {
+    background-color: rgb(0, 224, 224);
+}
+
 #loginMenu div div input, #loginMenu div div textarea {
     border: none;
     outline: none;
+    width: 100%;
 }
 
 #registerText {
@@ -342,7 +357,6 @@ select {
 #loginRegister {
     margin: auto;
     width: 30%;
-    height: 300px;
     margin-top: 100px;
     margin-bottom: 17px;
     background-color: coral;
@@ -361,7 +375,7 @@ select {
     outline: none;
 }
 
-#passwordLogin {
+#passwordLogin, #name2 {
     padding-top: 10px;
 }
 
