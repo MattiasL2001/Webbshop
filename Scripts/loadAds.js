@@ -54,14 +54,28 @@ if (document.getElementById("registerButton") != undefined) {
                 input.style.borderStyle = "solid"
                 input.style.borderWidth = "3px"
                 input.style.borderColor = "red"
-                input.style.transition = "border-color 3s"
+                setTimeout(() => {
+                    input.style.borderStyle = "none"
+                }, 3000)
                 window.alert("field can not be empty!")
+                return
             }
         }
 
         if (document.getElementById("passwordLogin").querySelector("input").value.length < 5) {
-            window.alert("Passwordn needs to be at least 5 characters!")
+            let input = document.getElementById("passwordLogin").querySelector("input")
+            input.style.borderStyle = "solid"
+            input.style.borderWidth = "3px"
+            input.style.borderColor = "red"
+            setTimeout(() => {
+                input.style.borderStyle = "none"
+            }, 3000)
+            window.alert("Password needs to be at least 5 characters!")
+            return
         }
+
+        location.href = "index.html"
+        window.alert("Registration successful!")
     }
 }
 
