@@ -23,6 +23,7 @@ let items = [
 ]
 
 items.push(shirt, hoodie, hat, watch)
+console.log("items: " + items)
 
 let user0 = new User("mattias-lindblad2001@hotmail.com", "123", "Mattias", "Lindblad", "2001-07-09")
 let user1 = new User("anna.lundström@hotmail.se", "123", "Anna", "Lundström", "1999-01-04")
@@ -64,10 +65,21 @@ if (document.getElementById("registerButton") != undefined) {
     }
 }
 
+document.getElementById("char").onmouseenter = function() {
+    document.getElementById("char").style.setProperty("--invert", "100%")
+}
+
+document.getElementById("char").onmouseleave = function() {
+    if (!loginMenuClicked) {
+        document.getElementById("char").style.setProperty("--invert", "0%")
+    }
+}
+
 let loginRegister = document.getElementById("char").onclick = function() {
     if (!loginMenuClicked) {
         document.getElementById("loginMenu").style.display = "block"
         loginMenuClicked = true
+        document.getElementById("char").style.setProperty("--invert", "100%")
     }
     else {
         document.getElementById("loginMenu").style.display = "none"

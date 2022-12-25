@@ -160,14 +160,17 @@ nav div a:hover, nav div button:hover {
 }
 
 #char {
+    --invert: 0%;
+    filter: invert(var(--invert));
     margin-left: 20px;
     width: 37px;
     height: 22px;
 }
 
 #char:hover {
+    --invert: 100%;
     transition: .2s;
-    filter: invert(100%);
+    filter: invert(var(--invert));
 }
 
 #menu-icon {
