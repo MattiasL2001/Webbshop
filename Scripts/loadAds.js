@@ -140,6 +140,8 @@ document.getElementById("char").onclick = function() {
     charFunction()
 }
 
+document.getElementById("logOut").style.display = "none"
+document.getElementById("welcomeText").style.display = "none"
 function loggingIn(firstName, surName) {
     console.log("User: " + firstName + " " + surName)
     console.log(document.getElementById("loginMenu").querySelectorAll("div"))
@@ -150,10 +152,6 @@ function loggingIn(firstName, surName) {
         }
         document.getElementById("loginMenu").querySelectorAll("div")[7].style.height = "200px"
         document.getElementById("loginMenu").querySelectorAll("div")[7].style.display = "block"
-        document.getElementById("logOut").style.display = "flex"
-        document.getElementById("logOut").style.width = "100%"
-        document.getElementById("logOut").style.height = "20px"
-        document.getElementById("logOut").style.backgroundColor = "brown"
         loggedIn = false
     }
     else {

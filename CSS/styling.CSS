@@ -352,16 +352,16 @@ select {
 }
 
 #loginMenu div div div input[type=button] {
-    background-color: aqua;
+    background-color: white;
     width: 100%;
 }
 
 #loginMenu div div div input[type=button]:hover {
-    background-color: rgb(0, 242, 242);
+    background-color: rgb(245, 245, 245);
 }
 
 #loginMenu div div div input[type=button]:active {
-    background-color: rgb(0, 224, 224);
+    background-color: rgb(235, 235, 235);
 }
 
 #loginMenu div div input, #loginMenu div div textarea {
