@@ -149,14 +149,17 @@ nav div a:hover, nav div button:hover {
 }
 
 #cart {
+    --invertCart: 0%;
+    filter: invert(var(--invertCart));
     margin-left: 0px;
     width: 37px;
     height: 22px;
 }
 
 #cart:hover {
+    --invertCart: 100%;
     transition: .2s;
-    filter: invert(100%);
+    filter: invert(var(--invertCart));
 }
 
 #char {
@@ -300,6 +303,21 @@ select {
     background-color: rgb(216, 107, 68);
 }
 
+#cartMenu {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    margin-top: 152px;
+    right: calc(57px + 10%);
+    width: 250px;
+    height: 200px;
+    border-width: 2px;
+    border-style: solid;
+    border-top: 0;
+    border-color: coral;
+    background-color: rgb(255, 166, 133);
+}
+
 #loginMenu {
     display: flex;
     justify-content: center;
@@ -315,12 +333,12 @@ select {
     background-color: rgb(255, 166, 133);
 }
 
-#loginMenu div {
+#loginMenu div, #cartMenu div {
     display: flex;
     justify-content: center;
 }
 
-#loginMenu div div {
+#loginMenu div div, #cartMenu div div {
     display: block;
     width: 80%;
     margin-top: 10px;

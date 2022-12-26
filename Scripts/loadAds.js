@@ -40,9 +40,6 @@ let users = [
 users.push(user0)
 users.push(user1)
 
-let loginMenuClicked = false
-document.getElementById("loginMenu").style.display = "none"
-
 if (document.getElementById("registerButton") != undefined) {
     
     document.getElementById("registerButton").onclick = function() {
@@ -79,6 +76,41 @@ if (document.getElementById("registerButton") != undefined) {
     }
 }
 
+let cartMenuClicked = false
+document.getElementById("cartMenu").style.display = "none"
+
+document.getElementById("cart").onmouseenter = function() {
+    document.getElementById("cart").style.setProperty("--invertCart", "100%")
+}
+
+document.getElementById("cart").onmouseleave = function() {
+    if (!cartMenuClicked) {
+        document.getElementById("cart").style.setProperty("--invertCart", "0%")
+    }
+}
+
+cartFunction = function() {
+    if (!cartMenuClicked) {
+        document.getElementById("cartMenu").style.display = "block"
+        cartMenuClicked = true
+        document.getElementById("cart").style.setProperty("--invertCart", "100%")
+        loginMenuClicked = true
+        document.getElementById("char").style.setProperty("--invert", "0%")
+        charFunction() 
+    }
+    else {
+        document.getElementById("cartMenu").style.display = "none"
+        cartMenuClicked = false
+    }
+}
+
+let cart = document.getElementById("cart").onclick = function() {
+    cartFunction()
+}
+
+let loginMenuClicked = false
+document.getElementById("loginMenu").style.display = "none"
+
 document.getElementById("char").onmouseenter = function() {
     document.getElementById("char").style.setProperty("--invert", "100%")
 }
@@ -89,16 +121,23 @@ document.getElementById("char").onmouseleave = function() {
     }
 }
 
-let loginRegister = document.getElementById("char").onclick = function() {
+charFunction = function() {
     if (!loginMenuClicked) {
         document.getElementById("loginMenu").style.display = "block"
         loginMenuClicked = true
         document.getElementById("char").style.setProperty("--invert", "100%")
+        cartMenuClicked = true
+        document.getElementById("cart").style.setProperty("--invertCart", "0%")
+        cartFunction()
     }
     else {
         document.getElementById("loginMenu").style.display = "none"
         loginMenuClicked = false
     }
+}
+
+document.getElementById("char").onclick = function() {
+    charFunction()
 }
 
 function loggingIn(firstName, surName) {
@@ -171,12 +210,14 @@ window.addEventListener("scroll", () => {
             nav.style.top = "0px"
             nav.style.transition = "0s"
             document.getElementById("loginMenu").style.marginTop = (60 + window.scrollY) + "px"
+            document.getElementById("cartMenu").style.marginTop = (60 + window.scrollY) + "px"
         }
         else if (window.scrollY <= 152) {
             nav.style.position = "relative"
             nav.style.top = "0px"
             nav.style.transition = ".2s"
             document.getElementById("loginMenu").style.marginTop = "152px"
+            document.getElementById("cartMenu").style.marginTop = "152px"
         }
     }
 })
