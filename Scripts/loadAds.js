@@ -20,11 +20,13 @@ let hoodie = new Ad("Hoodie", "Clothing", "35,99$", "Black", "src", "Women")
 let hat = new Ad("Hat", "Clothing", "19,99$", "Gray", "src", "Unisex")
 let watch = new Ad("Watch", "Accessories", "59,99$", "Black", "src", "Men")
 let shirt_2 = new Ad("T-Shirt", "Clothing", "14,99$", "Pink", "src", "Women")
+let watch_2 = new Ad("Watch", "Accessories", "59,99$", "Gray", "src", "Women")
+let hoodie_2 = new Ad("Hoodie", "Clothing", "35,99$", "Yellow", "src", "Men")
 
 let items = [
 ]
 
-items.push(shirt, shirt_2, hoodie, hat, watch)
+items.push(shirt, shirt_2, hoodie, hat, watch, watch_2, hoodie_2)
 
 let user0 = new User("mattias-lindblad2001@hotmail.com", "123", "Mattias", "Lindblad", "2001-07-09")
 let user1 = new User("anna.lundström@hotmail.se", "123", "Anna", "Lundström", "1999-01-04")
@@ -378,6 +380,7 @@ loadArticles()
 
 function loadArticles() {
     console.clear
+    let rowNum = 1
 
     if (document.querySelectorAll(".row") != null && document.querySelectorAll(".row") != undefined) {
         Array.prototype.forEach.call(document.querySelectorAll(".row"), function (node) {
@@ -392,6 +395,7 @@ function loadArticles() {
     }
 
     let rowIndex = 1
+    let itemsToShow = []
 
     for (i = 0; i < items.length; i++) {
 
@@ -399,15 +403,16 @@ function loadArticles() {
             row = document.createElement("div")
             row.className = "row"
             row.id = "row" + rowIndex
-            articles.appendChild(row)
+            document.getElementById("articles").appendChild(row)
             rowIndex++;
         }
 
-        if ((items[i].gender != filters.Gender && filters.Gender != "Unisex")
+        if ((items[i].gender != filters.Gender && filters.Gender != "Unisex" && items[i].gender != "Unisex")
         || (items[i].category != filters.Products && filters.Products != "All")
         || (items[i].color != filters.Colors && filters.Colors != "All")) {
         }
         else {
+            itemsToShow.push(items[i])
             item = document.createElement("div")
             item.className = "item"
             item.id = "item" + (i + 1)
@@ -479,21 +484,52 @@ function loadArticles() {
         }
     }
 
+    for (i = 0; i < itemsToShow.length; i++) {
+
+        for (l = 0; l < items.length; l ++) {
+            if (items[l] == itemsToShow[i]) {
+
+                if (i == 0 || i < objPerCol * rowNum) {
+                    console.log("item: " + (i + 1) + ", row: " + rowNum)
+                    document.getElementById("row" + rowNum).appendChild(document.getElementById("item" + (l + 1)))
+                }
+                else if (i % objPerCol == 0) {
+                    rowNum++
+                    console.log("item: " + (i + 1) + ", row: " + rowNum)
+                    console.log(objPerCol * row)
+                    document.getElementById("row" + rowNum).appendChild(document.getElementById("item" + (l + 1)))
+                }
+            }
+        }
+
+        // console.log(itemsToShow[i])
+        // if (i == 0) {
+        //     console.log(document.getElementById("row" + (i + 1)))
+        // }
+        // else if (i % objPerCol == 0) {
+        //     console.log(document.getElementById("row" + (i/objPerCol + 1)))
+        // }
+    }
+
     rows = document.getElementsByClassName("row")
     for (i = 0; i < rows.length; i++) {
 
+        //if there is only one object per column, this
+        //this the case for narrow viewports, in most cases mobile
         if (objPerCol == 1) {
             rows[i].style.justifyContent = "center"
         }
         else {
+            //checks how many products per row there are
             rowLength = 0
             for (l = 0; l < rows[i].childNodes.length; l++) {
                 rowLength++
             }
-
+            //if there is more than 2 articles on row[i]
             if (rowLength > 2) {
                 rows[i].style.justifyContent = "center"
             }
+            //if there is 1 or 2 articles on row[i]
             else {
                 rows[i].style.justifyContent = "flex-start"
             }
