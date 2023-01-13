@@ -114,7 +114,6 @@ nav div {
     outline: none;
     width: 25px;
     height: 25px;
-    background-image: url("C:/Users/Matti/OneDrive/Dokument/Visual Studio Code/Webbshop/v1.3/img/search_black.png");
     background-repeat: no-repeat;
     background-color: transparent;
     background-size: 100%;
@@ -239,6 +238,53 @@ select {
     border-style: solid;
     border-width: 1px;
     border-color: coral;
+}
+
+#articleForm {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    margin-top: 25px;
+    width: 50%;
+}
+
+#articleForm div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+#articleForm div div[class="buyButton"] {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    width: 120px;
+    color: white;
+}
+
+#article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    margin: auto;
+    width: 20%;
+    border-radius: 1px;
+    border-style: solid;
+    border-color: coral;
+}
+
+#article h2 {
+    display: flex;
+    justify-content: center;
+}
+
+#article img {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 #articles {

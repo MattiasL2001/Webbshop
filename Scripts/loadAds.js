@@ -1,9 +1,10 @@
-function Ad(name, category, price, color, image) {
+function Ad(name, category, price, color, image, gender) {
     this.name = name
     this.category = category
     this.price = price
     this.color = color
     this.image = image
+    this.gender = gender
 }
 
 function User(email, password, firstName, surName, birthDate) {
@@ -14,24 +15,24 @@ function User(email, password, firstName, surName, birthDate) {
     this.birthDate = birthDate
 }
 
-let shirt = new Ad("T-Shirt", "Clothing", "14,99$", "White", "src")
-let hoodie = new Ad("Hoodie", "Clothing", "35,99$", "Black", "src")
-let hat = new Ad("Hat", "Clothing", "19,99$", "Gray", "src")
-let watch = new Ad("Watch", "Accessories", "59,99$", "Black", "src")
+let shirt = new Ad("T-Shirt", "Clothing", "14,99$", "White", "src", "Men")
+let hoodie = new Ad("Hoodie", "Clothing", "35,99$", "Black", "src", "Women")
+let hat = new Ad("Hat", "Clothing", "19,99$", "Gray", "src", "Unisex")
+let watch = new Ad("Watch", "Accessories", "59,99$", "Black", "src", "Men")
+let shirt_2 = new Ad("T-Shirt", "Clothing", "14,99$", "Pink", "src", "Women")
 
 let items = [
 ]
 
-items.push(shirt, hoodie, hat, watch)
-console.log("items: " + items)
+items.push(shirt, shirt_2, hoodie, hat, watch)
 
 let user0 = new User("mattias-lindblad2001@hotmail.com", "123", "Mattias", "Lindblad", "2001-07-09")
 let user1 = new User("anna.lundström@hotmail.se", "123", "Anna", "Lundström", "1999-01-04")
 
   // outputs the content of the text file
-fetch('users.txt')
-  .then(response => response.text())
-  .then(text => console.log(text))
+// fetch('users.txt')
+//   .then(response => response.text())
+//   .then(text => console.log(text))
 
 let users = [
 
@@ -260,13 +261,15 @@ function navLeftOut(id) {
     element.style.backgroundColor = "coral";
 }
 
-let objPerCol
+let objPerCol = 3
+
+var filters = {
+    Gender: "Unisex",
+    Products: "All",
+    Colors: "All"
+}
 
 function resize() {
-
-    if (document.querySelector("body").clientWidth > 600) {
-        
-    }
 
     if (document.querySelector("body").clientWidth >= 950) {
         objPerCol = 3
@@ -302,12 +305,79 @@ window.onresize = () => {
     resize()
 }
 
+//adds an event listener who listens for when any of the values of the filter-select-boxes changes
+document.getElementsByClassName("filter").forEach(addEventListener("change", function() {
+    filterChange()
+}))
+
+function filterChange() {
+
+    switch(document.getElementsByClassName("filter")[0].selectedIndex) {
+        case 0:
+            filters.Gender = "Unisex"
+            break;
+        case 1:
+            filters.Gender = "Men"
+            break;
+        case 2:
+            filters.Gender = "Women"
+            break;
+    }
+    switch(document.getElementsByClassName("filter")[1].selectedIndex) {
+        case 0:
+            filters.Products = "All"
+            break;
+        case 1:
+            filters.Products = "Clothing"
+            break;
+        case 2:
+            filters.Products = "Accessories"
+            break;
+    }
+    switch(document.getElementsByClassName("filter")[2].selectedIndex) {
+        case 0:
+            filters.Colors = "All"
+            break;
+        case 1:
+            filters.Colors = "White"
+            break;
+        case 2:
+            filters.Colors = "Gray"
+            break;
+        case 3:
+            filters.Colors = "Black"
+            break;
+        case 4:
+            filters.Colors = "Red"
+            break;
+        case 5:
+            filters.Colors = "Green"
+            break;
+        case 6:
+            filters.Colors = "Yellow"
+            break;
+        case 7:
+            filters.Colors = "Orange"
+            break;
+        case 8:
+            filters.Colors = "Blue"
+            break;
+        case 9:
+            filters.Colors = "Pink"
+            break;
+        case 10:
+            filters.Colors = "Purple"
+            break;
+        case 11:
+            filters.Colors = "Brown"
+            break;
+    }
+    loadArticles()
+}
 loadArticles()
 
 function loadArticles() {
     console.clear
-
-    let numOfItems = 4
 
     if (document.querySelectorAll(".row") != null && document.querySelectorAll(".row") != undefined) {
         Array.prototype.forEach.call(document.querySelectorAll(".row"), function (node) {
@@ -323,7 +393,7 @@ function loadArticles() {
 
     let rowIndex = 1
 
-    for (i = 0; i < numOfItems; i++) {
+    for (i = 0; i < items.length; i++) {
 
         if (i == 0 || i % objPerCol == 0) {
             row = document.createElement("div")
@@ -333,72 +403,80 @@ function loadArticles() {
             rowIndex++;
         }
 
-        item = document.createElement("div")
-        item.className = "item"
-        item.id = "item" + (i + 1)
-        img = document.createElement("img")
-        img.id = "img" + (i + 1)
-        item.appendChild(img)
-        h = document.createElement("h1")
-        h.textContent = "Product Name"
-        item.appendChild(h)
-        d = document.createElement("div")
-        item.appendChild(d)
-        p = document.createElement("p")
-        p.textContent = "19,99$"
-        p.style.textAlign = "center"
-        p.id = "price" + (i + 1)
-        p.style.width = "49%"
-        cd = document.createElement("div")
-        cd.id = "colorDiv" + (i + 1)
-        s = document.createElement("p")
-        s.style.width = "2%"
-        s.textContent = "|"
-        s.style.color = "black"
-        p2 = document.createElement("p")
-        p2.textContent = "Color: "
-        p2.style.color = "black"
-        cd.appendChild(p2)
-        c = document.createElement("div")
-        c.id = "color" + (i + 1)
-        b = document.createElement("div")
-        b.className = "buyButton"
-        b.style.marginBottom = "25px"
-        b.style.width = "60%"
-        b.style.height = "35px"
-        b.style.display = "flex"
-        b.style.alignItems = "center"
-        b.style.justifyContent = "center"
-        bt = document.createElement("h2")
-        bt.style.color = "white"
-        bt.innerHTML = "Buy"
-        item.appendChild(b)
-        b.appendChild(bt)
-        cd.appendChild(c)
-        d.appendChild(p)
-        d.appendChild(s)
-        d.appendChild(cd)
-        d.className = "colorPrice"
-        document.getElementById("row" + (rowIndex - 1)).appendChild(item)
-
-        document.querySelectorAll(".colorPrice")[i].style.display = "flex"
-        document.querySelectorAll(".colorPrice")[i].style.height = "30px"
-        document.querySelectorAll(".colorPrice")[i].style.width = "75%"
-        document.getElementById("colorDiv" + (i + 1)).style.width = "49%"
-        document.getElementById("colorDiv" + (i + 1)).style.display = "flex"
-        document.getElementById("colorDiv" + (i + 1)).style.justifyContent = "center"
-        document.getElementById("colorDiv" + (i + 1)).style.marginBottom = "10px"
-        document.getElementById("color" + (i + 1)).style.width = "25px"
-        document.getElementById("color" + (i + 1)).style.height = "25px"
-        document.getElementById("color" + (i + 1)).style.borderRadius = "100%"
-        document.getElementById("color" + (i + 1)).style.borderColor = "gray"
-        document.getElementById("color" + (i + 1)).style.borderStyle = "solid"
-        document.getElementById("color" + (i + 1)).style.borderWidth = "1px"
-
-        document.getElementById("item" + (i + 1)).querySelector("h1").innerHTML = items[i].name
-        document.getElementById("item" + (i + 1)).querySelector("p").innerHTML = items[i].price
-        document.getElementById("img" + (i + 1)).style.backgroundImage = "url('img/" + items[i].name  + ".png')"
-        document.getElementById("color" + (i + 1)).style.backgroundColor = items[i].color
+        if ((items[i].gender != filters.Gender && filters.Gender != "Unisex")
+        || (items[i].category != filters.Products && filters.Products != "All")
+        || (items[i].color != filters.Colors && filters.Colors != "All")) {
+        }
+        else {
+            item = document.createElement("div")
+            item.className = "item"
+            item.id = "item" + (i + 1)
+            img = document.createElement("img")
+            img.id = "img" + (i + 1)
+            item.appendChild(img)
+            h = document.createElement("h1")
+            h.textContent = "Product Name"
+            item.appendChild(h)
+            d = document.createElement("div")
+            item.appendChild(d)
+            p = document.createElement("p")
+            p.textContent = "19,99$"
+            p.style.textAlign = "center"
+            p.id = "price" + (i + 1)
+            p.style.width = "49%"
+            cd = document.createElement("div")
+            cd.id = "colorDiv" + (i + 1)
+            s = document.createElement("p")
+            s.style.width = "2%"
+            s.textContent = "|"
+            s.style.color = "black"
+            p2 = document.createElement("p")
+            p2.textContent = "Color: "
+            p2.style.color = "black"
+            cd.appendChild(p2)
+            c = document.createElement("div")
+            c.id = "color" + (i + 1)
+            b = document.createElement("a")
+            b.style.textDecoration = "none"
+            b.className = "buyButton"
+            b.href = items[i].name + ".html"
+            b.style.marginBottom = "25px"
+            b.style.width = "60%"
+            b.style.height = "35px"
+            b.style.display = "flex"
+            b.style.alignItems = "center"
+            b.style.justifyContent = "center"
+            bt = document.createElement("h2")
+            bt.style.color = "white"
+            bt.innerHTML = "Buy"
+            item.appendChild(b)
+            b.appendChild(bt)
+            cd.appendChild(c)
+            d.appendChild(p)
+            d.appendChild(s)
+            d.appendChild(cd)
+            d.className = "colorPrice"
+            document.getElementById("row" + (rowIndex - 1)).appendChild(item)
+    
+            d.style.display = "flex"
+            d.style.height = "30px"
+            d.style.width = "75%"
+            document.getElementById("colorDiv" + (i + 1)).style.width = "49%"
+            document.getElementById("colorDiv" + (i + 1)).style.display = "flex"
+            document.getElementById("colorDiv" + (i + 1)).style.justifyContent = "center"
+            document.getElementById("colorDiv" + (i + 1)).style.marginBottom = "10px"
+            document.getElementById("color" + (i + 1)).style.width = "25px"
+            document.getElementById("color" + (i + 1)).style.height = "25px"
+            document.getElementById("color" + (i + 1)).style.borderRadius = "100%"
+            document.getElementById("color" + (i + 1)).style.borderColor = "gray"
+            document.getElementById("color" + (i + 1)).style.borderStyle = "solid"
+            document.getElementById("color" + (i + 1)).style.borderWidth = "1px"
+    
+            document.getElementById("item" + (i + 1)).querySelector("h1").innerHTML = items[i].name
+            document.getElementById("item" + (i + 1)).querySelector("p").innerHTML = items[i].price
+            document.getElementById("img" + (i + 1)).style.backgroundImage = "url('img/" + items[i].name  + ".png')"
+            document.getElementById("color" + (i + 1)).style.backgroundColor = items[i].color
+        }
     }
 
     rows = document.getElementsByClassName("row")
@@ -413,11 +491,11 @@ function loadArticles() {
                 rowLength++
             }
 
-            if (rowLength > 1) {
+            if (rowLength > 2) {
                 rows[i].style.justifyContent = "center"
             }
             else {
-                rows[i].style.justifyContent = "start"
+                rows[i].style.justifyContent = "flex-start"
             }
         }
     }
