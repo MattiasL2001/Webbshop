@@ -285,13 +285,13 @@ function resize() {
         searchArticles = document.getElementById("searchArticles")
         searchArticles.style.justifyContent = "space-evenly"
 
-        items = document.getElementsByClassName("item")
+        itemElements = document.getElementsByClassName("item")
 
-        for (i = 0; i < items.length; i++) {
-            console.log(items[i].children[0])
-            items[i].children[0].style.backgroundImage = "none"
-            items[i].children[0].style.height = "40%"
-            items[i].children[0].style.width = "350px * 0.4"
+        for (i = 0; i < itemElements.length; i++) {
+            console.log(itemElements[i].children[0])
+            itemElements[i].children[0].style.backgroundImage = "none"
+            itemElements[i].children[0].style.height = "40%"
+            itemElements[i].children[0].style.width = "350px * 0.4"
         }
     }
     else {
@@ -305,6 +305,28 @@ resize()
 
 window.onresize = () => {
     resize()
+}
+
+var search = false
+var itemsToShow = []
+document.getElementById("input-logo").onclick = function() {
+    let inputString = document.getElementById("input-box").value
+
+    for (i = 0; i < itemsToShow.length; i++) {
+        for (l = 0; l < items.length; l ++) {
+            if (itemsToShow[i] == items[l]) {
+
+                if (items[l].name.includes(inputString) && inputString !== "") {
+                }
+                else {
+                    search = true
+                    itemsToShow.splice(i, 1)
+                }
+            }
+        }
+    }
+    console.log(itemsToShow)
+    loadArticles()
 }
 
 //adds an event listener who listens for when any of the values of the filter-select-boxes changes
@@ -381,6 +403,7 @@ loadArticles()
 function loadArticles() {
     console.clear
     let rowNum = 1
+    itemsToShow = []
 
     if (document.querySelectorAll(".row") != null && document.querySelectorAll(".row") != undefined) {
         Array.prototype.forEach.call(document.querySelectorAll(".row"), function (node) {
@@ -395,10 +418,8 @@ function loadArticles() {
     }
 
     let rowIndex = 1
-    let itemsToShow = []
 
     for (i = 0; i < items.length; i++) {
-
         if (i == 0 || i % objPerCol == 0) {
             row = document.createElement("div")
             row.className = "row"
@@ -411,7 +432,7 @@ function loadArticles() {
         || (items[i].category != filters.Products && filters.Products != "All")
         || (items[i].color != filters.Colors && filters.Colors != "All")) {
         }
-        else {
+        else if (!search || items[i].name.includes(document.getElementById("input-box").value)) {
             itemsToShow.push(items[i])
             item = document.createElement("div")
             item.className = "item"
@@ -483,32 +504,21 @@ function loadArticles() {
             document.getElementById("color" + (i + 1)).style.backgroundColor = items[i].color
         }
     }
+    console.log(itemsToShow.length)
 
     for (i = 0; i < itemsToShow.length; i++) {
-
         for (l = 0; l < items.length; l ++) {
             if (items[l] == itemsToShow[i]) {
 
                 if (i == 0 || i < objPerCol * rowNum) {
-                    console.log("item: " + (i + 1) + ", row: " + rowNum)
                     document.getElementById("row" + rowNum).appendChild(document.getElementById("item" + (l + 1)))
                 }
                 else if (i % objPerCol == 0) {
                     rowNum++
-                    console.log("item: " + (i + 1) + ", row: " + rowNum)
-                    console.log(objPerCol * row)
                     document.getElementById("row" + rowNum).appendChild(document.getElementById("item" + (l + 1)))
                 }
             }
         }
-
-        // console.log(itemsToShow[i])
-        // if (i == 0) {
-        //     console.log(document.getElementById("row" + (i + 1)))
-        // }
-        // else if (i % objPerCol == 0) {
-        //     console.log(document.getElementById("row" + (i/objPerCol + 1)))
-        // }
     }
 
     rows = document.getElementsByClassName("row")
@@ -526,7 +536,7 @@ function loadArticles() {
                 rowLength++
             }
             //if there is more than 2 articles on row[i]
-            if (rowLength > 2) {
+            if (rowLength > 2 || (objPerCol == 2)) {
                 rows[i].style.justifyContent = "center"
             }
             //if there is 1 or 2 articles on row[i]

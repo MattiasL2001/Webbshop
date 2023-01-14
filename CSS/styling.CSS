@@ -509,8 +509,6 @@ footer {
       }
 
       .item img {
-        height: 65%;
-        width: calc(350px * 0.65);
         margin-top: 25px;
       }
 }
@@ -522,16 +520,12 @@ footer {
 
     .item img {
       height: 100%;
-      width: calc(350px * 1);
-      margin-top: 25px;
     }
 }
 
 @media only screen and (max-width: 500px) {
     .item img {
       height: 90%;
-      width: calc(350px * 0.9);
-      margin-top: 25px;
     }
 }
 
@@ -539,14 +533,12 @@ footer {
     .item img {
       height: 70%;
       width: calc(350px * 0.7);
-      margin-top: 25px;
     }
 }
 
 @media only screen and (max-width: 335px) {
     .item img {
       height: 60%;
-      width: calc(350px * 0.6);
       margin-top: 25px;
     }
 
