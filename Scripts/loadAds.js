@@ -28,6 +28,40 @@ let items = [
 
 items.push(shirt, shirt_2, hoodie, hat, watch, watch_2, hoodie_2)
 
+let cartItem = [Ad, String]
+
+let cartItems = [
+    
+]
+
+for (i = 0; i < items.length; i++) {
+
+    if (window.location.pathname.includes(items[i].name)) {
+        let description = document.getElementById("description")
+        description.style.height = "269px"
+        let selectElement =  document.getElementById("quantity")
+        description.getElementsByTagName("div")[0].getElementsByTagName("h2")[0].innerHTML = localStorage.getItem("productName")
+        description.getElementsByTagName("div")[1].getElementsByTagName("h3")[0].innerHTML = localStorage.getItem("productGender")
+        description.getElementsByTagName("div")[2].getElementsByTagName("h3")[0].innerHTML = localStorage.getItem("productPrice")
+        document.getElementById("colorDiv").getElementsByTagName("div")[0].style.backgroundColor = localStorage.getItem("productColor")
+
+        document.getElementById("buyButton").onclick = function() {
+            if (selectElement.selectedIndex != 0) {
+                console.log("Quantity: " + selectElement.selectedIndex)
+
+                cartItems.push(new Ad(localStorage.getItem("productName"),
+                localStorage.getItem("productCategory"),
+                localStorage.getItem("productPrice"),
+                localStorage.getItem("productColor"),
+                localStorage.getItem("productImage"),
+                localStorage.getItem("productGender")), selectElement.selectedIndex)
+
+                console.log(cartItems)
+            }
+        }
+    }
+}
+
 let user0 = new User("mattias-lindblad2001@hotmail.com", "123", "Mattias", "Lindblad", "2001-07-09")
 let user1 = new User("anna.lundström@hotmail.se", "123", "Anna", "Lundström", "1999-01-04")
 
@@ -277,13 +311,17 @@ function resize() {
         objPerCol = 3
 
         searchArticles = document.getElementById("searchArticles")
-        searchArticles.style.justifyContent = "space-evenly"
+        if (searchArticles != null) {
+            searchArticles.style.justifyContent = "space-evenly"
+        }
     }
     else if (document.querySelector("body").clientWidth >= 600 &&
         document.querySelector("body").clientWidth < 950) {
         objPerCol = 2
         searchArticles = document.getElementById("searchArticles")
-        searchArticles.style.justifyContent = "space-evenly"
+        if (searchArticles != null) {
+            searchArticles.style.justifyContent = "space-evenly"
+        }
 
         itemElements = document.getElementsByClassName("item")
 
@@ -310,23 +348,28 @@ window.onresize = () => {
 var search = false
 var itemsToShow = []
 document.getElementById("input-logo").onclick = function() {
-    let inputString = document.getElementById("input-box").value
+    if (window.location.pathname.includes("index")) {
+        let inputString = document.getElementById("input-box").value
 
-    for (i = 0; i < itemsToShow.length; i++) {
-        for (l = 0; l < items.length; l ++) {
-            if (itemsToShow[i] == items[l]) {
-
-                if (items[l].name.includes(inputString) && inputString !== "") {
-                }
-                else {
-                    search = true
-                    itemsToShow.splice(i, 1)
+        for (i = 0; i < itemsToShow.length; i++) {
+            for (l = 0; l < items.length; l ++) {
+                if (itemsToShow[i] == items[l]) {
+    
+                    if (items[l].name.includes(inputString) && inputString !== "") {
+                    }
+                    else {
+                        search = true
+                        itemsToShow.splice(i, 1)
+                    }
                 }
             }
         }
+        console.log(itemsToShow)
+        loadArticles()
     }
-    console.log(itemsToShow)
-    loadArticles()
+    else {
+        window.location.href = "/index.html"
+    }
 }
 
 //adds an event listener who listens for when any of the values of the filter-select-boxes changes
@@ -336,212 +379,228 @@ document.getElementsByClassName("filter").forEach(addEventListener("change", fun
 
 function filterChange() {
 
-    switch(document.getElementsByClassName("filter")[0].selectedIndex) {
-        case 0:
-            filters.Gender = "Unisex"
-            break;
-        case 1:
-            filters.Gender = "Men"
-            break;
-        case 2:
-            filters.Gender = "Women"
-            break;
+    if (window.location.pathname.includes("index")) {
+        switch(document.getElementsByClassName("filter")[0].selectedIndex) {
+            case 0:
+                filters.Gender = "Unisex"
+                break;
+            case 1:
+                filters.Gender = "Men"
+                break;
+            case 2:
+                filters.Gender = "Women"
+                break;
+        }
+        switch(document.getElementsByClassName("filter")[1].selectedIndex) {
+            case 0:
+                filters.Products = "All"
+                break;
+            case 1:
+                filters.Products = "Clothing"
+                break;
+            case 2:
+                filters.Products = "Accessories"
+                break;
+        }
+        switch(document.getElementsByClassName("filter")[2].selectedIndex) {
+            case 0:
+                filters.Colors = "All"
+                break;
+            case 1:
+                filters.Colors = "White"
+                break;
+            case 2:
+                filters.Colors = "Gray"
+                break;
+            case 3:
+                filters.Colors = "Black"
+                break;
+            case 4:
+                filters.Colors = "Red"
+                break;
+            case 5:
+                filters.Colors = "Green"
+                break;
+            case 6:
+                filters.Colors = "Yellow"
+                break;
+            case 7:
+                filters.Colors = "Orange"
+                break;
+            case 8:
+                filters.Colors = "Blue"
+                break;
+            case 9:
+                filters.Colors = "Pink"
+                break;
+            case 10:
+                filters.Colors = "Purple"
+                break;
+            case 11:
+                filters.Colors = "Brown"
+                break;
+        }
+        loadArticles()
     }
-    switch(document.getElementsByClassName("filter")[1].selectedIndex) {
-        case 0:
-            filters.Products = "All"
-            break;
-        case 1:
-            filters.Products = "Clothing"
-            break;
-        case 2:
-            filters.Products = "Accessories"
-            break;
-    }
-    switch(document.getElementsByClassName("filter")[2].selectedIndex) {
-        case 0:
-            filters.Colors = "All"
-            break;
-        case 1:
-            filters.Colors = "White"
-            break;
-        case 2:
-            filters.Colors = "Gray"
-            break;
-        case 3:
-            filters.Colors = "Black"
-            break;
-        case 4:
-            filters.Colors = "Red"
-            break;
-        case 5:
-            filters.Colors = "Green"
-            break;
-        case 6:
-            filters.Colors = "Yellow"
-            break;
-        case 7:
-            filters.Colors = "Orange"
-            break;
-        case 8:
-            filters.Colors = "Blue"
-            break;
-        case 9:
-            filters.Colors = "Pink"
-            break;
-        case 10:
-            filters.Colors = "Purple"
-            break;
-        case 11:
-            filters.Colors = "Brown"
-            break;
-    }
-    loadArticles()
 }
 loadArticles()
 
 function loadArticles() {
-    console.clear
-    let rowNum = 1
-    itemsToShow = []
-
-    if (document.querySelectorAll(".row") != null && document.querySelectorAll(".row") != undefined) {
-        Array.prototype.forEach.call(document.querySelectorAll(".row"), function (node) {
-            node.parentNode.removeChild(node)
-        })
-    }
-
-    if (document.querySelectorAll(".item") != null && document.querySelectorAll(".item") != undefined) {
-        Array.prototype.forEach.call(document.querySelectorAll(".item"), function (node) {
-            node.parentNode.removeChild(node)
-        })
-    }
-
-    let rowIndex = 1
-
-    for (i = 0; i < items.length; i++) {
-        if (i == 0 || i % objPerCol == 0) {
-            row = document.createElement("div")
-            row.className = "row"
-            row.id = "row" + rowIndex
-            document.getElementById("articles").appendChild(row)
-            rowIndex++;
-        }
-
-        if ((items[i].gender != filters.Gender && filters.Gender != "Unisex" && items[i].gender != "Unisex")
-        || (items[i].category != filters.Products && filters.Products != "All")
-        || (items[i].color != filters.Colors && filters.Colors != "All")) {
-        }
-        else if (!search || items[i].name.includes(document.getElementById("input-box").value)) {
-            itemsToShow.push(items[i])
-            item = document.createElement("div")
-            item.className = "item"
-            item.id = "item" + (i + 1)
-            img = document.createElement("img")
-            img.id = "img" + (i + 1)
-            item.appendChild(img)
-            h = document.createElement("h1")
-            h.textContent = "Product Name"
-            item.appendChild(h)
-            d = document.createElement("div")
-            item.appendChild(d)
-            p = document.createElement("p")
-            p.textContent = "19,99$"
-            p.style.textAlign = "center"
-            p.id = "price" + (i + 1)
-            p.style.width = "49%"
-            cd = document.createElement("div")
-            cd.id = "colorDiv" + (i + 1)
-            s = document.createElement("p")
-            s.style.width = "2%"
-            s.textContent = "|"
-            s.style.color = "black"
-            p2 = document.createElement("p")
-            p2.textContent = "Color: "
-            p2.style.color = "black"
-            cd.appendChild(p2)
-            c = document.createElement("div")
-            c.id = "color" + (i + 1)
-            b = document.createElement("a")
-            b.style.textDecoration = "none"
-            b.className = "buyButton"
-            b.href = items[i].name + ".html"
-            b.style.marginBottom = "25px"
-            b.style.width = "60%"
-            b.style.height = "35px"
-            b.style.display = "flex"
-            b.style.alignItems = "center"
-            b.style.justifyContent = "center"
-            bt = document.createElement("h2")
-            bt.style.color = "white"
-            bt.innerHTML = "Buy"
-            item.appendChild(b)
-            b.appendChild(bt)
-            cd.appendChild(c)
-            d.appendChild(p)
-            d.appendChild(s)
-            d.appendChild(cd)
-            d.className = "colorPrice"
-            document.getElementById("row" + (rowIndex - 1)).appendChild(item)
+    if (window.location.pathname.includes("index")) {
+        console.clear
+        let rowNum = 1
+        itemsToShow = []
     
-            d.style.display = "flex"
-            d.style.height = "30px"
-            d.style.width = "75%"
-            document.getElementById("colorDiv" + (i + 1)).style.width = "49%"
-            document.getElementById("colorDiv" + (i + 1)).style.display = "flex"
-            document.getElementById("colorDiv" + (i + 1)).style.justifyContent = "center"
-            document.getElementById("colorDiv" + (i + 1)).style.marginBottom = "10px"
-            document.getElementById("color" + (i + 1)).style.width = "25px"
-            document.getElementById("color" + (i + 1)).style.height = "25px"
-            document.getElementById("color" + (i + 1)).style.borderRadius = "100%"
-            document.getElementById("color" + (i + 1)).style.borderColor = "gray"
-            document.getElementById("color" + (i + 1)).style.borderStyle = "solid"
-            document.getElementById("color" + (i + 1)).style.borderWidth = "1px"
-    
-            document.getElementById("item" + (i + 1)).querySelector("h1").innerHTML = items[i].name
-            document.getElementById("item" + (i + 1)).querySelector("p").innerHTML = items[i].price
-            document.getElementById("img" + (i + 1)).style.backgroundImage = "url('img/" + items[i].name  + ".png')"
-            document.getElementById("color" + (i + 1)).style.backgroundColor = items[i].color
+        if (document.querySelectorAll(".row") != null && document.querySelectorAll(".row") != undefined) {
+            Array.prototype.forEach.call(document.querySelectorAll(".row"), function (node) {
+                node.parentNode.removeChild(node)
+            })
         }
-    }
-    console.log(itemsToShow.length)
+    
+        if (document.querySelectorAll(".item") != null && document.querySelectorAll(".item") != undefined) {
+            Array.prototype.forEach.call(document.querySelectorAll(".item"), function (node) {
+                node.parentNode.removeChild(node)
+            })
+        }
+    
+        let rowIndex = 1
+    
+        for (i = 0; i < items.length; i++) {
+            if (i == 0 || i % objPerCol == 0) {
+                row = document.createElement("div")
+                row.className = "row"
+                row.id = "row" + rowIndex
+                document.getElementById("articles").appendChild(row)
+                rowIndex++;
+            }
+    
+            if ((items[i].gender != filters.Gender && filters.Gender != "Unisex" && items[i].gender != "Unisex")
+            || (items[i].category != filters.Products && filters.Products != "All")
+            || (items[i].color != filters.Colors && filters.Colors != "All")) {
+            }
+            else if (!search || items[i].name.includes(document.getElementById("input-box").value)) {
+                itemsToShow.push(items[i])
+                item = document.createElement("div")
+                item.className = "item"
+                item.id = "item" + (i + 1)
+                img = document.createElement("img")
+                img.id = "img" + (i + 1)
+                item.appendChild(img)
+                h = document.createElement("h1")
+                h.textContent = "Product Name"
+                item.appendChild(h)
+                d = document.createElement("div")
+                item.appendChild(d)
+                p = document.createElement("p")
+                p.textContent = "19,99$"
+                p.style.textAlign = "center"
+                p.id = "price" + (i + 1)
+                p.style.width = "49%"
+                cd = document.createElement("div")
+                cd.id = "colorDiv" + (i + 1)
+                s = document.createElement("p")
+                s.style.width = "2%"
+                s.textContent = "|"
+                s.style.color = "black"
+                p2 = document.createElement("p")
+                p2.textContent = "Color: "
+                p2.style.color = "black"
+                cd.appendChild(p2)
+                c = document.createElement("div")
+                c.id = "color" + (i + 1)
+                b = document.createElement("a")
+                b.style.textDecoration = "none"
+                b.className = "buyButton"
+                b.href = items[i].name + ".html"
+                console.log("i: " + i)
 
-    for (i = 0; i < itemsToShow.length; i++) {
-        for (l = 0; l < items.length; l ++) {
-            if (items[l] == itemsToShow[i]) {
+                b.onclick = (function(i) {return function() {
+                    console.log(items[i].name)
+                    localStorage.setItem("productName", items[i].name)
+                    localStorage.setItem("productCategory", items[i].category)
+                    localStorage.setItem("productPrice", items[i].price)
+                    localStorage.setItem("productColor", items[i].color)
+                    localStorage.setItem("productImage", items[i].image)
+                    localStorage.setItem("productGender", items[i].gender)
+                }}(i))
+                b.style.marginBottom = "25px"
+                b.style.width = "60%"
+                b.style.height = "35px"
+                b.style.display = "flex"
+                b.style.alignItems = "center"
+                b.style.justifyContent = "center"
+                bt = document.createElement("h2")
+                bt.style.color = "white"
+                bt.innerHTML = "Buy"
+                item.appendChild(b)
+                b.appendChild(bt)
+                cd.appendChild(c)
+                d.appendChild(p)
+                d.appendChild(s)
+                d.appendChild(cd)
+                d.className = "colorPrice"
+                document.getElementById("row" + (rowIndex - 1)).appendChild(item)
+        
+                d.style.display = "flex"
+                d.style.height = "30px"
+                d.style.width = "75%"
+                document.getElementById("colorDiv" + (i + 1)).style.width = "49%"
+                document.getElementById("colorDiv" + (i + 1)).style.display = "flex"
+                document.getElementById("colorDiv" + (i + 1)).style.justifyContent = "center"
+                document.getElementById("colorDiv" + (i + 1)).style.marginBottom = "10px"
+                document.getElementById("color" + (i + 1)).style.width = "25px"
+                document.getElementById("color" + (i + 1)).style.height = "25px"
+                document.getElementById("color" + (i + 1)).style.borderRadius = "100%"
+                document.getElementById("color" + (i + 1)).style.borderColor = "gray"
+                document.getElementById("color" + (i + 1)).style.borderStyle = "solid"
+                document.getElementById("color" + (i + 1)).style.borderWidth = "1px"
+        
+                document.getElementById("item" + (i + 1)).querySelector("h1").innerHTML = items[i].name
+                document.getElementById("item" + (i + 1)).querySelector("p").innerHTML = items[i].price
+                document.getElementById("img" + (i + 1)).style.backgroundImage = "url('img/" + items[i].name  + ".png')"
+                document.getElementById("color" + (i + 1)).style.backgroundColor = items[i].color
+            }
+        }
+        console.log(itemsToShow.length)
+    
+        for (i = 0; i < itemsToShow.length; i++) {
 
-                if (i == 0 || i < objPerCol * rowNum) {
-                    document.getElementById("row" + rowNum).appendChild(document.getElementById("item" + (l + 1)))
-                }
-                else if (i % objPerCol == 0) {
-                    rowNum++
-                    document.getElementById("row" + rowNum).appendChild(document.getElementById("item" + (l + 1)))
+            for (l = 0; l < items.length; l ++) {
+                if (items[l] == itemsToShow[i]) {
+    
+                    if (i == 0 || i < objPerCol * rowNum) {
+                        document.getElementById("row" + rowNum).appendChild(document.getElementById("item" + (l + 1)))
+                    }
+                    else if (i % objPerCol == 0) {
+                        rowNum++
+                        document.getElementById("row" + rowNum).appendChild(document.getElementById("item" + (l + 1)))
+                    }
                 }
             }
         }
-    }
-
-    rows = document.getElementsByClassName("row")
-    for (i = 0; i < rows.length; i++) {
-
-        //if there is only one object per column, this
-        //this the case for narrow viewports, in most cases mobile
-        if (objPerCol == 1) {
-            rows[i].style.justifyContent = "center"
-        }
-        else {
-            //checks how many products per row there are
-            rowLength = 0
-            for (l = 0; l < rows[i].childNodes.length; l++) {
-                rowLength++
-            }
-            //if there is more than 2 articles on row[i]
-            if (rowLength > 2 || (objPerCol == 2)) {
+    
+        rows = document.getElementsByClassName("row")
+        for (i = 0; i < rows.length; i++) {
+    
+            //if there is only one object per column, this
+            //this the case for narrow viewports, in most cases mobile
+            if (objPerCol == 1) {
                 rows[i].style.justifyContent = "center"
             }
-            //if there is 1 or 2 articles on row[i]
             else {
-                rows[i].style.justifyContent = "flex-start"
+                //checks how many products per row there are
+                rowLength = 0
+                for (l = 0; l < rows[i].childNodes.length; l++) {
+                    rowLength++
+                }
+                //if there is more than 2 articles on row[i]
+                if (rowLength > 2 || (objPerCol == 2)) {
+                    rows[i].style.justifyContent = "center"
+                }
+                //if there is 1 or 2 articles on row[i]
+                else {
+                    rows[i].style.justifyContent = "flex-start"
+                }
             }
         }
     }

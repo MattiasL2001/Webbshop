@@ -244,13 +244,11 @@ select {
     display: flex;
     align-items: center;
     margin: auto;
-    margin-top: 25px;
+    margin-top: 50px;
     width: 50%;
 }
 
 #articleForm div {
-    display: flex;
-    justify-content: center;
     width: 100%;
 }
 
@@ -276,8 +274,44 @@ select {
     border-color: coral;
 }
 
-#article h2 {
+#description {
     display: flex;
+    flex-direction: column;
+}
+
+#description div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 30px;
+}
+
+#colorDiv div {
+    background-color: aqua;
+    width: 30px;
+    border-radius: 100%;
+}
+
+#description div select {
+    margin-top: 25px;
+    width: 120px;
+    height: 30px;
+}
+
+#buyDiv {
+    display: flex;
+    flex-direction: row;
+}
+
+#quantity {
+    border-style: solid;
+    border-width: 1px;
+    border-color: coral;
+}
+
+#desciption h2 {
+    display: flex;
+    background-color: purple;
     justify-content: center;
 }
 
