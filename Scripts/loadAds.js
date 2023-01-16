@@ -23,8 +23,6 @@ let shirt_2 = new Ad("T-Shirt", "Clothing", "14,99$", "Pink", "src", "Women")
 let watch_2 = new Ad("Watch", "Accessories", "59,99$", "Gray", "src", "Women")
 let hoodie_2 = new Ad("Hoodie", "Clothing", "35,99$", "Yellow", "src", "Men")
 
-console.log("aa" == "aa")
-
 let items = [
 ]
 items.push(shirt, shirt_2, hoodie, hat, watch, watch_2, hoodie_2)
@@ -116,7 +114,6 @@ for (i = 0; i < items.length; i++) {
                     localStorage.setItem("cart", JSON.stringify(cartItemsSplit))
                 }
                 else {
-                    console.log(cartItems[0])
                     localStorage.setItem("cart", cartItems[0])
                 }
             }
@@ -149,7 +146,6 @@ if (document.getElementById("registerButton") != undefined) {
         for (i = 0; i < allDivs.length; i++) {
             if (allDivs[i].querySelector("input") != null && allDivs[i].querySelector("input").value == "") {
                 let input = allDivs[i].querySelector("input")
-                console.log(input)
                 input.style.borderStyle = "solid"
                 input.style.borderWidth = "3px"
                 input.style.borderColor = "red"
@@ -271,10 +267,7 @@ document.getElementById("char").onclick = function() {
 document.getElementById("logOut").style.display = "none"
 document.getElementById("welcomeText").style.display = "none"
 function loggingIn(firstName, surName) {
-    console.log("User: " + firstName + " " + surName)
-    console.log(document.getElementById("loginMenu").querySelectorAll("div"))
     if (loggedIn) {
-        console.log("logged out")
         for (i = 0; i < document.getElementById("loginMenu").querySelectorAll("div").length; i++) {
             document.getElementById("loginMenu").querySelectorAll("div")[i].style.display = "flex"
         }
@@ -283,7 +276,6 @@ function loggingIn(firstName, surName) {
         loggedIn = false
     }
     else {
-        console.log("logged in")
         for (i = 0; i < document.getElementById("loginMenu").querySelectorAll("div").length; i++) {
             document.getElementById("loginMenu").querySelectorAll("div")[i].style.display = "none"
         }
@@ -435,26 +427,9 @@ window.onresize = () => {
     resize()
 }
 
-var search = false
 var itemsToShow = []
 document.getElementById("input-logo").onclick = function() {
     if (window.location.pathname.includes("index")) {
-        let inputString = document.getElementById("input-box").value
-
-        for (i = 0; i < itemsToShow.length; i++) {
-            for (l = 0; l < items.length; l ++) {
-                if (itemsToShow[i] == items[l]) {
-    
-                    if (items[l].name.includes(inputString) && inputString !== "") {
-                    }
-                    else {
-                        search = true
-                        itemsToShow.splice(i, 1)
-                    }
-                }
-            }
-        }
-        console.log(itemsToShow)
         loadArticles()
     }
     else {
@@ -569,7 +544,7 @@ function loadArticles() {
             || (items[i].category != filters.Products && filters.Products != "All")
             || (items[i].color != filters.Colors && filters.Colors != "All")) {
             }
-            else if (!search || items[i].name.includes(document.getElementById("input-box").value)) {
+            else if (items[i].name.toLowerCase().includes(document.getElementById("input-box").value.toLowerCase())) {
                 itemsToShow.push(items[i])
                 item = document.createElement("div")
                 item.className = "item"
@@ -604,7 +579,6 @@ function loadArticles() {
                 b.className = "buyButton"
                 b.href = items[i].name + ".html"
                 b.onclick = (function(i) {return function() {
-                    console.log(items[i].name)
                     localStorage.setItem("productName", items[i].name)
                     localStorage.setItem("productCategory", items[i].category)
                     localStorage.setItem("productPrice", items[i].price)
