@@ -386,16 +386,47 @@ select {
 #cartMenu {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     position: absolute;
     margin-top: 152px;
     right: calc(57px + 10%);
     width: 250px;
-    height: 200px;
+    height: 75px;
     border-width: 2px;
     border-style: solid;
     border-top: 0;
     border-color: coral;
     background-color: rgb(255, 166, 133);
+}
+
+#cartMenu div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#cartMenu div div {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#basketButton {
+    margin-top: 5px;
+    background-color: white;
+    border-radius: 3px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    width: 90%;
+}
+
+#basketButton:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+#basketButton:active {
+    background-color: rgb(235, 235, 235);
 }
 
 #loginMenu {
@@ -413,12 +444,13 @@ select {
     background-color: rgb(255, 166, 133);
 }
 
-#loginMenu div, #cartMenu div {
+#loginMenu div {
     display: flex;
+    flex-direction: row;
     justify-content: center;
 }
 
-#loginMenu div div, #cartMenu div div {
+#loginMenu div div {
     display: block;
     width: 80%;
     margin-top: 10px;

@@ -28,11 +28,12 @@ let items = [
 
 items.push(shirt, shirt_2, hoodie, hat, watch, watch_2, hoodie_2)
 
-let cartItem = [Ad, String]
+function cartItem(ad, quantity) {
+    this.ad = ad
+    this.quantity = quantity
+}
 
-let cartItems = [
-    
-]
+let cartItems = []
 
 for (i = 0; i < items.length; i++) {
 
@@ -47,16 +48,31 @@ for (i = 0; i < items.length; i++) {
 
         document.getElementById("buyButton").onclick = function() {
             if (selectElement.selectedIndex != 0) {
-                console.log("Quantity: " + selectElement.selectedIndex)
 
-                cartItems.push(new Ad(localStorage.getItem("productName"),
+                let ad = new Ad(localStorage.getItem("productName"),
                 localStorage.getItem("productCategory"),
                 localStorage.getItem("productPrice"),
                 localStorage.getItem("productColor"),
                 localStorage.getItem("productImage"),
-                localStorage.getItem("productGender")), selectElement.selectedIndex)
+                localStorage.getItem("productGender"))
 
-                console.log(cartItems)
+                let cartI = new cartItem(ad, selectElement.selectedIndex)
+                cartItems.push(JSON.stringify([cartI]))
+
+                if (localStorage.getItem("cart") != null) {
+                    let cartItemsSplit = JSON.parse(localStorage.getItem("cart"))
+                    cartI = JSON.stringify(cartI)
+                    cartI = JSON.parse(cartI)
+                    cartItemsSplit.push(cartI)
+                    localStorage.setItem("cart", JSON.stringify(cartItemsSplit))
+                }
+                else {
+                    console.log(cartItems[0])
+                    localStorage.setItem("cart", cartItems[0])
+                }
+            }
+            else {
+                window.alert("Please select quantity")
             }
         }
     }
@@ -126,14 +142,40 @@ document.getElementById("cart").onmouseleave = function() {
     }
 }
 
+cartHeightFunction = function() {
+    if (localStorage.getItem("cart") != null) {
+        let parsedCartArray = localStorage.getItem("cart").split("],[")
+        parsedCartArray = JSON.parse(parsedCartArray)
+        document.getElementById("cartMenu").style.height = 75 + (parsedCartArray.length * 25) + "px"
+
+        let cartDiv = document.createElement("div")
+        let cartP = document.createElement("p")
+        cartP.innerText = "Cart:"
+        cartDiv.appendChild(cartP)
+        document.getElementById("cartMenu").getElementsByTagName("div")[0].replaceChildren()
+        document.getElementById("cartMenu").getElementsByTagName("div")[0].appendChild(cartDiv)
+
+        for(i = 0; i < parsedCartArray.length; i++) {
+            let newDiv = document.createElement("div")
+            document.getElementById("cartMenu").getElementsByTagName("div")[0].appendChild(newDiv)
+            aElement = document.createElement("a")
+            aElement.innerHTML = parsedCartArray[i].ad.name + " x " + parsedCartArray[i].quantity
+            aElement.href = "/" + parsedCartArray[i].ad.name + ".html"
+            newDiv.appendChild(aElement)
+        }
+    }
+}
+
 cartFunction = function() {
+
     if (!cartMenuClicked) {
-        document.getElementById("cartMenu").style.display = "block"
+        cartHeightFunction()
+        document.getElementById("cartMenu").style.display = "flex"
         cartMenuClicked = true
         document.getElementById("cart").style.setProperty("--invertCart", "100%")
         loginMenuClicked = true
         document.getElementById("char").style.setProperty("--invert", "0%")
-        charFunction() 
+        charFunction()
     }
     else {
         document.getElementById("cartMenu").style.display = "none"
@@ -326,7 +368,6 @@ function resize() {
         itemElements = document.getElementsByClassName("item")
 
         for (i = 0; i < itemElements.length; i++) {
-            console.log(itemElements[i].children[0])
             itemElements[i].children[0].style.backgroundImage = "none"
             itemElements[i].children[0].style.height = "40%"
             itemElements[i].children[0].style.width = "350px * 0.4"
@@ -512,8 +553,6 @@ function loadArticles() {
                 b.style.textDecoration = "none"
                 b.className = "buyButton"
                 b.href = items[i].name + ".html"
-                console.log("i: " + i)
-
                 b.onclick = (function(i) {return function() {
                     console.log(items[i].name)
                     localStorage.setItem("productName", items[i].name)
@@ -561,7 +600,6 @@ function loadArticles() {
                 document.getElementById("color" + (i + 1)).style.backgroundColor = items[i].color
             }
         }
-        console.log(itemsToShow.length)
     
         for (i = 0; i < itemsToShow.length; i++) {
 
