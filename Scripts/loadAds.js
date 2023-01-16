@@ -23,10 +23,59 @@ let shirt_2 = new Ad("T-Shirt", "Clothing", "14,99$", "Pink", "src", "Women")
 let watch_2 = new Ad("Watch", "Accessories", "59,99$", "Gray", "src", "Women")
 let hoodie_2 = new Ad("Hoodie", "Clothing", "35,99$", "Yellow", "src", "Men")
 
+console.log("aa" == "aa")
+
 let items = [
 ]
-
 items.push(shirt, shirt_2, hoodie, hat, watch, watch_2, hoodie_2)
+let unsortedItems = []
+
+for (i = 0; i < items.length; i ++) {
+    unsortedItems.push(items[i])
+}
+
+function itemsSort(c) {
+    let needsSorting = false
+
+    switch(c) {
+        case 0:
+            for (i = 0; i < items.length; i++) {
+                items.splice(i, 1, unsortedItems[i])
+            }
+            break;
+        case 1:
+            for(i = 0; i < items.length; i++) {
+                if(items[i + 1] != undefined && items[i].price > items[i + 1 ].price) {
+                    var current = items[i]
+                    items.splice(i, 1)
+                    items.splice((i + 1), 0, current)
+                    needsSorting = true
+                }
+            }
+            break;
+        case 2:
+            for(i = 0; i < items.length; i++) {
+                if(items[i + 1] != undefined && items[i].price < items[i + 1 ].price) {
+                    var current = items[i]
+                    items.splice(i, 1)
+                    items.splice((i + 1), 0, current)
+                    needsSorting = true
+                }
+            }
+            break;
+        case 3:
+            for(i = 0; i < items.length; i++) {
+                if(items[i + 1] != undefined && items[i].name > items[i + 1 ].name) {
+                    var current = items[i]
+                    items.splice(i, 1)
+                    items.splice((i + 1), 0, current)
+                    needsSorting = true
+                }
+            }
+            break
+    }
+    if (needsSorting) {itemsSort(c)}
+}
 
 function cartItem(ad, quantity) {
     this.ad = ad
@@ -481,6 +530,7 @@ function filterChange() {
                 filters.Colors = "Brown"
                 break;
         }
+        itemsSort(document.getElementsByClassName("filter")[3].selectedIndex)
         loadArticles()
     }
 }
@@ -533,7 +583,7 @@ function loadArticles() {
                 d = document.createElement("div")
                 item.appendChild(d)
                 p = document.createElement("p")
-                p.textContent = "19,99$"
+                p.textContent = "Price $"
                 p.style.textAlign = "center"
                 p.id = "price" + (i + 1)
                 p.style.width = "49%"
