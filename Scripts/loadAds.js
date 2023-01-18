@@ -247,7 +247,8 @@ document.getElementById("char").onmouseleave = function() {
 
 charFunction = function() {
     if (!loginMenuClicked) {
-        document.getElementById("loginMenu").style.display = "block"
+        document.getElementById("loginMenu").style.display = "flex"
+        document.getElementById("loginMenu").style.flexDirection = "column"
         loginMenuClicked = true
         document.getElementById("char").style.setProperty("--invert", "100%")
         cartMenuClicked = true
@@ -310,20 +311,48 @@ function Scroll() {
     //gets the nav-element from the html
     nav = document.querySelector("nav")
 
-    if (window.scrollY > 152) {
-        nav.style.position = "fixed"
-        nav.style.top = "0px"
-        document.getElementById("loginMenu").style.marginTop = (60 + window.scrollY) + "px"
-        document.getElementById("cartMenu").style.marginTop = (60 + window.scrollY) + "px"
-    }
-    else if (window.scrollY <= 152) {
-        nav.style.position = "relative"
-        nav.style.top = "0px"
-        document.getElementById("loginMenu").style.marginTop = "152px"
-        document.getElementById("cartMenu").style.marginTop = "152px"
+    if (document.querySelector("body").clientWidth > 600) {
+        document.querySelector("body").appendChild(document.getElementById("loginMenu"))
+        document.querySelector("body").appendChild(document.getElementById("cartMenu"))
+        if (window.scrollY > 152) {
+            nav.style.position = "fixed"
+            nav.style.top = "0px"
+            document.getElementById("loginMenu").style.marginTop = (60 + window.scrollY) + "px"
+            document.getElementById("cartMenu").style.marginTop = (60 + window.scrollY) + "px"
+        }
+        else if (window.scrollY <= 152) {
+            nav.style.position = "relative"
+            nav.style.top = "0px"
+            document.getElementById("loginMenu").style.marginTop = "152px"
+            document.getElementById("cartMenu").style.marginTop = "152px"
 
-        if (!isClicked && document.querySelector("body").clientWidth <= 600) {
-        nav.style.position = "fixed"
+        }
+    }
+    else {
+        document.getElementById("sidebarLogin").appendChild(document.getElementById("loginMenu"))
+        document.getElementById("loginMenu").style.display = "contents"
+        document.getElementById("sidebarCart").appendChild(document.getElementById("cartMenu"))
+        document.getElementById("cartMenu").style.backgroundColor = "transparent"
+        document.getElementById("cartMenu").style.display = "contents"
+        document.getElementById("cartMenu").style.borderStyle = "none"
+        document.getElementById("cartMenu").style.right = "auto"
+        document.getElementById("cartMenu").style.marginTop = "0px"
+        document.getElementById("cartMenu").getElementsByTagName("div")[0].style.flexDirection = "column"
+        document.getElementById("basketButton").style.width = "100%"
+        document.getElementById("basketButton").parentElement.style.width = "100%"
+        document.getElementById("sidebarCart").appendChild(document.getElementById("basketDiv"))
+        document.getElementById("sidebarCart").style.flexDirection = "column"
+        if (document.getElementById("cartContent") != null) {
+            document.getElementById("cartContent").style.flexDirection = "column"
+        }
+        document.getElementById("basketDiv").appendChild(document.getElementById("basketButton"))
+        cartHeightFunction()
+
+        if (window.scrollY > 152) {
+            nav.style.position = "fixed"
+        }
+        else  if (isClicked) {
+            nav.style.position = "relative"
         }
     }
 }
@@ -360,6 +389,7 @@ function mobileMenu() {
             isClicked = false
             document.querySelector("footer").style.display = "none"
             document.querySelector("header").style.display = "none"
+            nav.style.position = "fixed"
         }
         //runs if the mobile menu is showing and the menu icon is clicked
         else if (!isClicked) {
@@ -392,11 +422,33 @@ var filters = {
 
 function resize() {
     mobileMenu()
+    document.getElementsByClassName("filter")[0].getElementsByTagName("option")[0].textContent = "Filter By Gender"
+    document.getElementsByClassName("filter")[1].getElementsByTagName("option")[0].textContent = "Filter By Product"
+    document.getElementsByClassName("filter")[2].getElementsByTagName("option")[0].textContent = "Filter By Color"
+    document.getElementsByClassName("filter")[3].getElementsByTagName("option")[0].textContent = "SORT BY"
+    
+    document.getElementsByClassName("filter")[0].style.width = "20%"
+    document.getElementsByClassName("filter")[1].style.width = "20%"
+    document.getElementsByClassName("filter")[2].style.width = "20%"
+    document.getElementsByClassName("filter")[3].style.width = "20%"
+
+    loginMenuClicked = true
+    charFunction()
+
+    cartMenuClicked = true
+    cartFunction()
+
+    document.getElementById("char").style.setProperty("--invertCart", "0%")
+    document.getElementById("cart").style.setProperty("--invertCart", "0%")
+
+    searchArticles = document.getElementById("searchArticles")
+    searchArticles.style.flexDirection = "row"
+    searchArticles.style.backgroundColor = "White"
+    searchArticles.style.width = "80%"
 
     if (document.querySelector("body").clientWidth >= 950) {
         objPerCol = 3
 
-        searchArticles = document.getElementById("searchArticles")
         if (searchArticles != null) {
             searchArticles.style.justifyContent = "space-evenly"
         }
@@ -404,7 +456,6 @@ function resize() {
     else if (document.querySelector("body").clientWidth >= 600 &&
         document.querySelector("body").clientWidth < 950) {
         objPerCol = 2
-        searchArticles = document.getElementById("searchArticles")
         if (searchArticles != null) {
             searchArticles.style.justifyContent = "space-evenly"
         }
@@ -417,10 +468,24 @@ function resize() {
             itemElements[i].children[0].style.width = "350px * 0.4"
         }
     }
-    else {
+    else if (document.querySelector("body").clientWidth < 600) {
         objPerCol = 1
-        searchArticles = document.getElementById("searchArticles")
         searchArticles.style.justifyContent = "space-evenly"
+
+        document.getElementsByClassName("filter")[0].getElementsByTagName("option")[0].textContent = "Gender"
+        document.getElementsByClassName("filter")[1].getElementsByTagName("option")[0].textContent = "Product"
+        document.getElementsByClassName("filter")[2].getElementsByTagName("option")[0].textContent = "Color"
+        document.getElementsByClassName("filter")[3].getElementsByTagName("option")[0].textContent = "Sort"
+    }
+    if (document.querySelector("body").clientWidth < 300) {
+        searchArticles.style.flexDirection = "column"
+        searchArticles.style.backgroundColor = "rgb(245, 245, 245)"
+        searchArticles.style.width = "100%"
+
+        document.getElementsByClassName("filter")[0].style.width = "50%"
+        document.getElementsByClassName("filter")[1].style.width = "50%"
+        document.getElementsByClassName("filter")[2].style.width = "50%"
+        document.getElementsByClassName("filter")[3].style.width = "50%"
     }
     loadArticles()
 }

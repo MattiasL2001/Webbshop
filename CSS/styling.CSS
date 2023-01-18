@@ -207,7 +207,6 @@ nav div a:hover, nav div button:hover {
 
 #sidebar div div input {
     width: 30px;
-    filter: invert(100%);
 }
 
 #sidebar div div a {
@@ -350,6 +349,7 @@ select {
 }
 
 #supportText {
+    text-align: center;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -558,8 +558,22 @@ footer {
 }
 
 @media only screen and (max-width: 600px) {
+    .filter {
+        font-size: 10px;
+    }
+    .filter option {
+        font-size: 10px;
+    }
     #cart {
         display: none;
+    }
+
+    #cartMenu {
+        flex-direction: column;
+    }
+
+    #cartMenu, #cartContent {
+        flex-direction: column;
     }
 
     #char {
@@ -593,10 +607,9 @@ footer {
       .item {
         flex-basis: calc(100% / 2);
       }
-
-      .item img {
-        margin-top: 25px;
-      }
+      #loginRegister {
+        width: 50%;
+    }
 }
 
 @media only screen and (max-width: 599px) {
@@ -607,11 +620,17 @@ footer {
     .item img {
       height: 100%;
     }
+    #loginRegister {
+        width: 70%;
+    }
 }
 
 @media only screen and (max-width: 500px) {
     .item img {
       height: 90%;
+    }
+    #articleForm {
+        flex-direction: column;
     }
 }
 
@@ -620,12 +639,16 @@ footer {
       height: 70%;
       width: calc(350px * 0.7);
     }
+    #loginRegister {
+        width: 90%;
+    }
 }
 
 @media only screen and (max-width: 335px) {
     .item img {
-      height: 60%;
-      margin-top: 25px;
+      height: 40%;
+      width: 85%;
+      background-size: cover;
     }
 
     .filter, #sort {
@@ -634,5 +657,9 @@ footer {
 
     .select select {
         font-size: 10px;
+    }
+
+    #logo a {
+        font-size: 18px;
     }
 }
