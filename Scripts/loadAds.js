@@ -304,40 +304,34 @@ document.getElementById("loginButton").onclick = function() {
     }
 }
 
-//adds a scroll event to listen to, makes the window.scroll work
-//creates a funcion that takes in the event to listen for as a parameter
-window.addEventListener("scroll", () => {
+let isClicked = false
 
+function Scroll() {
     //gets the nav-element from the html
     nav = document.querySelector("nav")
 
-    let isClicked = false
+    if (window.scrollY > 152) {
+        nav.style.position = "fixed"
+        nav.style.top = "0px"
+        document.getElementById("loginMenu").style.marginTop = (60 + window.scrollY) + "px"
+        document.getElementById("cartMenu").style.marginTop = (60 + window.scrollY) + "px"
+    }
+    else if (window.scrollY <= 152) {
+        nav.style.position = "relative"
+        nav.style.top = "0px"
+        document.getElementById("loginMenu").style.marginTop = "152px"
+        document.getElementById("cartMenu").style.marginTop = "152px"
 
-    if (isClicked) {
-        nav.style.transition = "0s"
-
-        if (window.scrollY > 187) {
-            nav.style.position = "fixed"
-            nav.style.top = "0px"
+        if (!isClicked && document.querySelector("body").clientWidth <= 600) {
+        nav.style.position = "fixed"
         }
     }
-    else if (!isClicked) {
+}
 
-        if (window.scrollY > 152) {
-            nav.style.position = "fixed"
-            nav.style.top = "0px"
-            nav.style.transition = "0s"
-            document.getElementById("loginMenu").style.marginTop = (60 + window.scrollY) + "px"
-            document.getElementById("cartMenu").style.marginTop = (60 + window.scrollY) + "px"
-        }
-        else if (window.scrollY <= 152) {
-            nav.style.position = "relative"
-            nav.style.top = "0px"
-            nav.style.transition = ".2s"
-            document.getElementById("loginMenu").style.marginTop = "152px"
-            document.getElementById("cartMenu").style.marginTop = "152px"
-        }
-    }
+//adds a scroll event to listen to, makes the window.scroll work
+//creates a funcion that takes in the event to listen for as a parameter
+window.addEventListener("scroll", () => {
+    Scroll()
 })
 
 //adjusts the height of the "sidebar" div in the html
@@ -349,25 +343,33 @@ document.getElementById("menu-icon").addEventListener("click", mobileMenu)
 //this function is for the mobile menu, the hamburger menu that pops up when 
 //the user is on mobile / screen-width is smaller
 function mobileMenu() {
-    //runs when the mobile menu is clicked and the menu is not showing
-    if (!isClicked) {
-        document.getElementById("sidebar").style.display = "inline"
-        isClicked = true
-        document.querySelector("footer").style.display = "none"
-        document.querySelector("header").style.display = "none"
-        nav.style.transition = "0s"
-        nav.style.position = "fixed"
-        nav.style.top = "0px"
-    }
-    //runs if the mobile menu is showing and the menu icon is clicked
-    else {
-        nav.style.position = "absolute"
+    let nav = document.getElementsByTagName("nav")[0]
+
+    //runs when the mobile menu is not showing
+    if (document.querySelector("body").clientWidth > 600) {
         nav.style.top = "92px"
         document.getElementById("sidebar").style.display = "none"
-        isClicked = false
         document.querySelector("footer").style.display = "flex"
         document.querySelector("header").style.display = "flex"
+        isClicked = false
     }
+    else if (document.querySelector("body").clientWidth <= 600) {
+        //runs when the mobile menu is clicked and the menu is not showing
+        if (isClicked) {
+            document.getElementById("sidebar").style.display = "flex"
+            isClicked = false
+            document.querySelector("footer").style.display = "none"
+            document.querySelector("header").style.display = "none"
+        }
+        //runs if the mobile menu is showing and the menu icon is clicked
+        else if (!isClicked) {
+            document.getElementById("sidebar").style.display = "none"
+            isClicked = true
+            document.querySelector("footer").style.display = "flex"
+            document.querySelector("header").style.display = "flex"
+        }
+    }
+    Scroll()
 }
 
 function navLeftClick(id) {
@@ -389,6 +391,7 @@ var filters = {
 }
 
 function resize() {
+    mobileMenu()
 
     if (document.querySelector("body").clientWidth >= 950) {
         objPerCol = 3

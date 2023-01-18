@@ -186,12 +186,32 @@ nav div a:hover, nav div button:hover {
 
 #sidebar {
     display: none;
+    justify-content: center;
     position: fixed;
     margin-right: 0;
     bottom: 0;
     width: 100%;
     height: calc(100vh - 60px - 90px);
     background-color: rgba(255, 100, 70, .9)
+}
+
+#sidebar div {
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar div div {
+    flex-direction: row;
+    justify-content: center;
+}
+
+#sidebar div div input {
+    width: 30px;
+    filter: invert(100%);
+}
+
+#sidebar div div a {
+    color: black;
 }
 
 .content {
