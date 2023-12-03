@@ -48,7 +48,8 @@ let hoodie_2 = new Ad("Hoodie", "Clothing", "35,99$", [Colors.WHITE, Colors.YELL
 
 let items = [
 ]
-items.push(shirt, long_name, adodas, shirt_2, hoodie, hat, hat_2, watch, watch_2, hoodie_2)
+// items.push(shirt, long_name, adodas, shirt_2, hoodie, hat, hat_2, watch, watch_2, hoodie_2)
+items.push(shirt, shirt_2, hoodie, hat, hat_2, watch, watch_2, hoodie_2)
 let unsortedItems = []
 
 for (i = 0; i < items.length; i ++) {
@@ -107,7 +108,7 @@ let cartItems = []
 
 for (i = 0; i < items.length; i++) {
 
-    if (window.location.pathname.includes(items[i].name)) {
+    if (window.location.pathname.toLowerCase().includes(items[i].name)) {
         let description = document.getElementById("description")
         description.style.height = "269px"
         let selectElement = document.getElementById("quantity")
@@ -116,7 +117,7 @@ for (i = 0; i < items.length; i++) {
         description.getElementsByTagName("div")[2].getElementsByTagName("h3")[0].innerHTML = localStorage.getItem("productPrice")
         document.getElementById("colorDiv").getElementsByTagName("div")[0].style.backgroundColor = localStorage.getItem("productColor")
 
-        document.getElementById("buyButton").onclick = function() {
+        document.getElementById("item" + (i + 1)).onclick = function() {
             if (selectElement.selectedIndex != 0) {
 
                 let ad = new Ad(localStorage.getItem("productName"),
@@ -464,6 +465,7 @@ var filters = {
 }
 
 function resize() {
+
     mobileMenu()
     document.getElementsByClassName("filter")[0].getElementsByTagName("option")[0].textContent = "Filter By Gender"
     document.getElementsByClassName("filter")[1].getElementsByTagName("option")[0].textContent = "Filter By Product"
@@ -534,7 +536,10 @@ function resize() {
     }
     loadArticles()
 }
-resize()
+
+if (window.location.pathname.includes("index")) {
+    resize()
+}
 
 window.onresize = () => {
     resize()
@@ -670,30 +675,35 @@ function loadArticles() {
                 item.appendChild(img)
                 productTitle = document.createElement("h1")
                 item.appendChild(productTitle)
-                priceDiv = document.createElement("div")
-                priceDiv.className = "productPrice"
-                priceDiv.style.display = "flex"
-                priceDiv.style.height = "30px"
-                priceDiv.style.width = "75%"
-                item.appendChild(priceDiv)
+                colorPrice = document.createElement("div")
+                colorPrice.className = "colorPrice" + (i + 1)
+                colorPrice.style.display = "flex"
+                colorPrice.style.width = "100%"
+                colorPrice.style.alignItems = "center"
+                colorPrice.style.justifyContent = "space-between"
+                item.appendChild(colorPrice)
                 price = document.createElement("p")
                 price.style.textAlign = "center"
                 price.id = "price" + (i + 1)
-                price.style.width = "100%"
+                price.textContent = items[i].price
+                price.style.width = "49%"
                 item.appendChild(price)
                 colorDiv = document.createElement("div")
-                colorDiv.id = "colorDiv" + (i + 1)
+                colorDiv.className = "colorDiv"
+                colorDiv.style.width = "49%"
+                colorDiv.style.display = "flex"
+                colorDiv.style.justifyContent = "center"
+                colorPrice.appendChild(colorDiv)
 
                 var colors = String(items[i].color).split(",")
 
                 for(j = 0; j < colors.length; j++)
                 {
-                    console.log(colors[j])
                     color = document.createElement("div")
-                    color.id = "color" + (j + 1)
-
-                    color.style.width = "25px"
-                    color.style.height = "25px"
+                    color.className = "color" + (j + 1)
+                    color.style.display = "flex"
+                    color.style.width = "15px"
+                    color.style.height = "15px"
                     color.style.borderRadius = "100%"
                     color.style.borderColor = "gray"
                     color.style.borderStyle = "solid"
@@ -701,17 +711,16 @@ function loadArticles() {
                     color.style.backgroundColor = colors[j]
                     colorDiv.appendChild(color)
                 }
-
-                priceDiv.appendChild(price)
-                item.appendChild(colorDiv)
+                
+                middleMark = document.createElement("p")
+                middleMark.id = "middleMark"
+                middleMark.textContent = "|"
+                colorPrice.appendChild(middleMark)
+                colorPrice.appendChild(price)
+                item.appendChild(colorPrice)
                 document.getElementById("row" + (rowIndex - 1)).appendChild(item)
-                document.getElementById("colorDiv" + (i + 1)).style.width = "100%"
-                document.getElementById("colorDiv" + (i + 1)).style.display = "flex"
-                document.getElementById("colorDiv" + (i + 1)).style.justifyContent = "center"
-                document.getElementById("colorDiv" + (i + 1)).style.marginBottom = "10px"
         
                 document.getElementById("item" + (i + 1)).querySelector("h1").innerHTML = items[i].name
-                document.getElementById("item" + (i + 1)).querySelector("p").innerHTML = items[i].price
                 document.getElementById("img" + (i + 1)).style.backgroundImage = "url('img/" + items[i].name  + ".png')"
             }
         }
