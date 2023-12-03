@@ -1,4 +1,5 @@
-function Ad(name, category, price, color, image, gender, url) {
+function Ad(id, name, category, price, color, image, gender, url) {
+    this.id = id
     this.name = name
     this.category = category
     this.price = price
@@ -34,22 +35,16 @@ class Colors {
   static get BRONZE() {return "BRONZE"; }
 }
 
-
-let shirt = new Ad("T-Shirt", "Clothing", "14,99$", [Colors.WHITE, Colors.RED], "src", "Men")
-let long_name = new Ad("This product has a super fkn long name", "Clothing", "4,99$", [Colors.WHITE], "src", "Men")
-let adodas = new Ad("Adodas Sleeve Hoodie Gray", "Clothing", "4,99$", [Colors.WHITE, Colors.GRAY], "src", "Men")
-let hoodie = new Ad("Hoodie", "Clothing", "35,99$", [Colors.WHITE, Colors.BLACK, Colors.GRAY, Colors.PINK], "src", "Women")
-let hat = new Ad("Hat", "Clothing", "19,99$", [Colors.GRAY], "src", "Unisex")
-let hat_2 = new Ad("Hat", "Clothing", "22,99$", [Colors.WHITE], "src", "Unisex")
-let watch = new Ad("Watch", "Accessories", "59,99$", [Colors.BLACK], "src", "Men")
-let shirt_2 = new Ad("T-Shirt", "Clothing", "14,99$", [Colors.PINK], "src", "Women")
-let watch_2 = new Ad("Watch", "Accessories", "59,99$", [Colors.GOLD, Colors.SILVER, Colors.BRONZE], "src", "Women")
-let hoodie_2 = new Ad("Hoodie", "Clothing", "35,99$", [Colors.WHITE, Colors.YELLOW], "src", "Men")
+let shirt = new Ad("1", "T-Shirt", "Clothing", "24,99$", [Colors.WHITE, Colors.RED, Colors.PINK, Colors.BLUE], "src", "Men")
+let hoodie = new Ad("2", "Hoodie product with a long name", "Clothing", "59,99$", [Colors.WHITE, Colors.BLACK, 
+    Colors.YELLOW, Colors.RED], "src", "Men")
+let hat = new Ad("3", "Basic Hat", "Clothing", "19,99$", [Colors.WHITE, Colors.GRAY, Colors.BLACK], "src", "Men")
+let watch = new Ad("4", "Watch", "Clothing", "89,99$", [Colors.GOLD, Colors.SILVER, Colors.BRONZE], "src", "Unisex")
+let shirt_2 = new Ad("5", "T-Shirt", "Clothing", "24,99$", [Colors.WHITE, Colors.RED, Colors.PINK, Colors.BLUE], "src", "Women")
 
 let items = [
 ]
-// items.push(shirt, long_name, adodas, shirt_2, hoodie, hat, hat_2, watch, watch_2, hoodie_2)
-items.push(shirt, shirt_2, hoodie, hat, hat_2, watch, watch_2, hoodie_2)
+items.push(shirt, hoodie, hat, watch, shirt_2)
 let unsortedItems = []
 
 for (i = 0; i < items.length; i ++) {
@@ -108,16 +103,36 @@ let cartItems = []
 
 for (i = 0; i < items.length; i++) {
 
-    if (window.location.pathname.toLowerCase().includes(items[i].name)) {
+    if (window.location.pathname.includes(items[i].id)) {
+        // let description = document.getElementById("description")
+        // description.style.height = "269px"
+        // let selectElement = document.getElementById("quantity")
+        // description.getElementsByTagName("div")[0].getElementsByTagName("h2")[0].innerHTML = localStorage.getItem("productName")
+        // description.getElementsByTagName("div")[1].getElementsByTagName("h3")[0].innerHTML = localStorage.getItem("productGender")
+        // description.getElementsByTagName("div")[2].getElementsByTagName("h3")[0].innerHTML = localStorage.getItem("productPrice")
+        // document.getElementById("colorDiv").getElementsByTagName("div")[0].style.backgroundColor = localStorage.getItem("productColor")
+
         let description = document.getElementById("description")
         description.style.height = "269px"
         let selectElement = document.getElementById("quantity")
-        description.getElementsByTagName("div")[0].getElementsByTagName("h2")[0].innerHTML = localStorage.getItem("productName")
-        description.getElementsByTagName("div")[1].getElementsByTagName("h3")[0].innerHTML = localStorage.getItem("productGender")
-        description.getElementsByTagName("div")[2].getElementsByTagName("h3")[0].innerHTML = localStorage.getItem("productPrice")
-        document.getElementById("colorDiv").getElementsByTagName("div")[0].style.backgroundColor = localStorage.getItem("productColor")
+        description.getElementsByTagName("div")[0].getElementsByTagName("h2")[0].innerHTML = items[i].name
+        description.getElementsByTagName("div")[1].getElementsByTagName("h3")[0].innerHTML = items[i].gender
+        description.getElementsByTagName("div")[2].getElementsByTagName("h3")[0].innerHTML = items[i].price
+        // document.getElementById("colorDiv").getElementsByTagName("div")[0].style.backgroundColor = items[i].color
 
-        document.getElementById("item" + (i + 1)).onclick = function() {
+        items[i].color.forEach((colorIndex) => {
+            let div = document.createElement("div")
+            div.style.borderWidth = "1px"
+            div.style.borderStyle = "solid"
+            div.style.borderColor = "gray"
+            div.style.backgroundColor = colorIndex
+            let colorDiv = document.getElementById("colorDiv")
+            colorDiv.appendChild(div)
+            console.log(colorDiv)
+        })
+
+        document.getElementById("buyButton").onclick = function() {
+            console.log("Buying")
             if (selectElement.selectedIndex != 0) {
 
                 let ad = new Ad(localStorage.getItem("productName"),
@@ -230,7 +245,7 @@ cartHeightFunction = function() {
             aElement = document.createElement("a")
             aElement.id = "cartItemLink"
             aElement.innerHTML = parsedCartArray[i].ad.name + " x " + parsedCartArray[i].quantity
-            aElement.href = "/" + parsedCartArray[i].ad.name + ".html"
+            aElement.href = "/" + parsedCartArray[i].ad.id + ".html"
             newDiv.appendChild(aElement)
         }
     }
@@ -667,7 +682,7 @@ function loadArticles() {
             else if (items[i].name.toLowerCase().includes(document.getElementById("input-box").value.toLowerCase())) {
                 itemsToShow.push(items[i])
                 item = document.createElement("a")
-                item.href = items[i].name + ".html"
+                item.href = items[i].id + ".html"
                 item.className = "item"
                 item.id = "item" + (i + 1)
                 img = document.createElement("img")
@@ -721,7 +736,7 @@ function loadArticles() {
                 document.getElementById("row" + (rowIndex - 1)).appendChild(item)
         
                 document.getElementById("item" + (i + 1)).querySelector("h1").innerHTML = items[i].name
-                document.getElementById("img" + (i + 1)).style.backgroundImage = "url('img/" + items[i].name  + ".png')"
+                document.getElementById("img" + (i + 1)).style.backgroundImage = "url('img/" + items[i].id  + ".png')"
             }
         }
     
@@ -760,7 +775,7 @@ function loadArticles() {
                 }
                 //if there is 1 or 2 articles on row[i]
                 else {
-                    rows[i].style.justifyContent = "space-evenly"
+                    rows[i].style.justifyContent = "flex-start"
                 }
             }
         }
