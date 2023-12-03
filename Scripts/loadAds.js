@@ -32,18 +32,16 @@ class Colors {
   static get ORANGE() {return "ORANGE"; }
   static get GOLD() {return "GOLD"; }
   static get SILVER() {return "SILVER"; }
-  static get BRONZE() {return "BRONZE"; }
 }
 
-let shirt = new Ad("1", "T-Shirt", "Clothing", "24,99$", [Colors.WHITE, Colors.RED, Colors.PINK, Colors.BLUE], "src", "Men")
+let shirt = new Ad("1", "T-Shirt Men", "Clothing", "24,99$", [Colors.WHITE, Colors.RED, Colors.PINK, Colors.BLUE], "src", "Men")
 let hoodie = new Ad("2", "Hoodie product with a long name", "Clothing", "59,99$", [Colors.WHITE, Colors.BLACK, 
     Colors.YELLOW, Colors.RED], "src", "Men")
-let hat = new Ad("3", "Basic Hat", "Clothing", "19,99$", [Colors.WHITE, Colors.GRAY, Colors.BLACK], "src", "Men")
-let watch = new Ad("4", "Watch", "Clothing", "89,99$", [Colors.GOLD, Colors.SILVER, Colors.BRONZE], "src", "Unisex")
-let shirt_2 = new Ad("5", "T-Shirt", "Clothing", "24,99$", [Colors.WHITE, Colors.RED, Colors.PINK, Colors.BLUE], "src", "Women")
+let hat = new Ad("3", "Basic Hat Men", "Clothing", "19,99$", [Colors.WHITE, Colors.GRAY, Colors.BLACK], "src", "Men")
+let watch = new Ad("4", "Watch Unisex", "Clothing", "89,99$", [Colors.GOLD, Colors.SILVER], "src", "Unisex")
+let shirt_2 = new Ad("5", "T-Shirt Women", "Clothing", "24,99$", [Colors.WHITE, Colors.RED, Colors.PINK, Colors.BLUE], "src", "Women")
 
-let items = [
-]
+let items = []
 items.push(shirt, hoodie, hat, watch, shirt_2)
 let unsortedItems = []
 
@@ -94,7 +92,7 @@ function itemsSort(c) {
     if (needsSorting) {itemsSort(c)}
 }
 
-function cartItem(ad, quantity) {
+function cartItemObject(ad, quantity) {
     this.ad = ad
     this.quantity = quantity
 }
@@ -118,7 +116,6 @@ for (i = 0; i < items.length; i++) {
         description.getElementsByTagName("div")[0].getElementsByTagName("h2")[0].innerHTML = items[i].name
         description.getElementsByTagName("div")[1].getElementsByTagName("h3")[0].innerHTML = items[i].gender
         description.getElementsByTagName("div")[2].getElementsByTagName("h3")[0].innerHTML = items[i].price
-        // document.getElementById("colorDiv").getElementsByTagName("div")[0].style.backgroundColor = items[i].color
 
         items[i].color.forEach((colorIndex) => {
             let div = document.createElement("div")
@@ -128,28 +125,30 @@ for (i = 0; i < items.length; i++) {
             div.style.backgroundColor = colorIndex
             let colorDiv = document.getElementById("colorDiv")
             colorDiv.appendChild(div)
-            console.log(colorDiv)
         })
 
         document.getElementById("buyButton").onclick = function() {
             console.log("Buying")
             if (selectElement.selectedIndex != 0) {
 
-                let ad = new Ad(localStorage.getItem("productName"),
+                let ad = new Ad(
+                localStorage.getItem("productId"),
+                localStorage.getItem("productName"),
                 localStorage.getItem("productCategory"),
                 localStorage.getItem("productPrice"),
                 localStorage.getItem("productColor"),
                 localStorage.getItem("productImage"),
-                localStorage.getItem("productGender"))
+                localStorage.getItem("productGender"),
+                localStorage.getItem("productUrl"))
 
-                let cartI = new cartItem(ad, selectElement.selectedIndex)
-                cartItems.push(JSON.stringify([cartI]))
+                let cartItem = new cartItemObject(ad, selectElement.selectedIndex)
+                cartItems.push(JSON.stringify([cartItem]))
 
                 if (localStorage.getItem("cart") != null) {
                     let cartItemsSplit = JSON.parse(localStorage.getItem("cart"))
-                    cartI = JSON.stringify(cartI)
-                    cartI = JSON.parse(cartI)
-                    cartItemsSplit.push(cartI)
+                    cartItem = JSON.stringify(cartItem)
+                    cartItem = JSON.parse(cartItem)
+                    cartItemsSplit.push(cartItem)
                     localStorage.setItem("cart", JSON.stringify(cartItemsSplit))
                 }
                 else {
@@ -230,7 +229,7 @@ cartHeightFunction = function() {
     if (localStorage.getItem("cart") != null) {
         let parsedCartArray = localStorage.getItem("cart").split("],[")
         parsedCartArray = JSON.parse(parsedCartArray)
-        document.getElementById("cartMenu").style.height = 75 + (parsedCartArray.length * 25) + "px"
+        document.getElementById("cartMenu").style.height = 75 + (parsedCartArray.length * 35) + "px"
 
         let cartDiv = document.createElement("div")
         let cartP = document.createElement("p")
@@ -557,7 +556,10 @@ if (window.location.pathname.includes("index")) {
 }
 
 window.onresize = () => {
-    resize()
+    if (window.location.pathname.includes("index"))
+    {
+        resize()
+    }
 }
 
 var itemsToShow = []
@@ -683,6 +685,20 @@ function loadArticles() {
                 itemsToShow.push(items[i])
                 item = document.createElement("a")
                 item.href = items[i].id + ".html"
+                items[i].url = item.href
+
+                item.onclick = (function(i) {return function()
+                {
+                    localStorage.setItem("productId", items[i].id)
+                    localStorage.setItem("productName", items[i].name)
+                    localStorage.setItem("productCategory", items[i].category)
+                    localStorage.setItem("productPrice", items[i].price)
+                    localStorage.setItem("productColor", items[i].color)
+                    localStorage.setItem("productImage", items[i].image)
+                    localStorage.setItem("productGender", items[i].gender)
+                    localStorage.setItem("productUrl", items[i].url)
+                }}(i))
+
                 item.className = "item"
                 item.id = "item" + (i + 1)
                 img = document.createElement("img")
