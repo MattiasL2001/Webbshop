@@ -16,8 +16,11 @@ function User(email, password, firstName, surName, birthDate) {
 }
 
 let shirt = new Ad("T-Shirt", "Clothing", "14,99$", "White", "src", "Men")
+let long_name = new Ad("This product has a super fkn long name", "Clothing", "4,99$", "White", "src", "Men")
+let adodas = new Ad("Adodas Sleeve Hoodie Gray", "Clothing", "4,99$", "White", "src", "Men")
 let hoodie = new Ad("Hoodie", "Clothing", "35,99$", "Black", "src", "Women")
 let hat = new Ad("Hat", "Clothing", "19,99$", "Gray", "src", "Unisex")
+let hat_2 = new Ad("Hat", "Clothing", "22,99$", "White", "src", "Unisex")
 let watch = new Ad("Watch", "Accessories", "59,99$", "Black", "src", "Men")
 let shirt_2 = new Ad("T-Shirt", "Clothing", "14,99$", "Pink", "src", "Women")
 let watch_2 = new Ad("Watch", "Accessories", "59,99$", "Gray", "src", "Women")
@@ -25,7 +28,7 @@ let hoodie_2 = new Ad("Hoodie", "Clothing", "35,99$", "Yellow", "src", "Men")
 
 let items = [
 ]
-items.push(shirt, shirt_2, hoodie, hat, watch, watch_2, hoodie_2)
+items.push(shirt, long_name, adodas, shirt_2, hoodie, hat, hat_2, watch, watch_2, hoodie_2)
 let unsortedItems = []
 
 for (i = 0; i < items.length; i ++) {
@@ -87,7 +90,7 @@ for (i = 0; i < items.length; i++) {
     if (window.location.pathname.includes(items[i].name)) {
         let description = document.getElementById("description")
         description.style.height = "269px"
-        let selectElement =  document.getElementById("quantity")
+        let selectElement = document.getElementById("quantity")
         description.getElementsByTagName("div")[0].getElementsByTagName("h2")[0].innerHTML = localStorage.getItem("productName")
         description.getElementsByTagName("div")[1].getElementsByTagName("h3")[0].innerHTML = localStorage.getItem("productGender")
         description.getElementsByTagName("div")[2].getElementsByTagName("h3")[0].innerHTML = localStorage.getItem("productPrice")
@@ -412,7 +415,7 @@ function navLeftOut(id) {
     element.style.backgroundColor = "coral";
 }
 
-let objPerCol = 3
+let objPerCol
 
 var filters = {
     Gender: "Unisex",
@@ -506,9 +509,10 @@ document.getElementById("input-logo").onclick = function() {
 }
 
 //adds an event listener who listens for when any of the values of the filter-select-boxes changes
-document.getElementsByClassName("filter").forEach(addEventListener("change", function() {
-    filterChange()
-}))
+const elementsArray = Array.from(document.getElementsByClassName("filter"))
+elementsArray.forEach(element => {
+    element.addEventListener("change", filterChange)
+})
 
 function filterChange() {
 
@@ -614,7 +618,8 @@ function loadArticles() {
             }
             else if (items[i].name.toLowerCase().includes(document.getElementById("input-box").value.toLowerCase())) {
                 itemsToShow.push(items[i])
-                item = document.createElement("div")
+                item = document.createElement("a")
+                item.href = items[i].name + ".html"
                 item.className = "item"
                 item.id = "item" + (i + 1)
                 img = document.createElement("img")
@@ -642,36 +647,12 @@ function loadArticles() {
                 cd.appendChild(p2)
                 c = document.createElement("div")
                 c.id = "color" + (i + 1)
-                b = document.createElement("a")
-                b.style.textDecoration = "none"
-                b.className = "buyButton"
-                b.href = items[i].name + ".html"
-                b.onclick = (function(i) {return function() {
-                    localStorage.setItem("productName", items[i].name)
-                    localStorage.setItem("productCategory", items[i].category)
-                    localStorage.setItem("productPrice", items[i].price)
-                    localStorage.setItem("productColor", items[i].color)
-                    localStorage.setItem("productImage", items[i].image)
-                    localStorage.setItem("productGender", items[i].gender)
-                }}(i))
-                b.style.marginBottom = "25px"
-                b.style.width = "60%"
-                b.style.height = "35px"
-                b.style.display = "flex"
-                b.style.alignItems = "center"
-                b.style.justifyContent = "center"
-                bt = document.createElement("h2")
-                bt.style.color = "white"
-                bt.innerHTML = "Buy"
-                item.appendChild(b)
-                b.appendChild(bt)
                 cd.appendChild(c)
                 d.appendChild(p)
                 d.appendChild(s)
                 d.appendChild(cd)
                 d.className = "colorPrice"
                 document.getElementById("row" + (rowIndex - 1)).appendChild(item)
-        
                 d.style.display = "flex"
                 d.style.height = "30px"
                 d.style.width = "75%"
@@ -725,9 +706,12 @@ function loadArticles() {
                 }
                 //if there is more than 2 articles on row[i]
                 if (rowLength > 2 || (objPerCol == 2)) {
-                    rows[i].style.justifyContent = "center"
+                    rows[i].style.justifyContent = "space-between"
                 }
                 //if there is 1 or 2 articles on row[i]
+                else if (objPerCol == 2) {
+                    rows[i].style.justifyContent = "space-evenly"
+                }
                 else {
                     rows[i].style.justifyContent = "flex-start"
                 }
