@@ -16,16 +16,35 @@ function User(email, password, firstName, surName, birthDate) {
     this.birthDate = birthDate
 }
 
-let shirt = new Ad("T-Shirt", "Clothing", "14,99$", "White", "src", "Men")
-let long_name = new Ad("This product has a super fkn long name", "Clothing", "4,99$", "White", "src", "Men")
-let adodas = new Ad("Adodas Sleeve Hoodie Gray", "Clothing", "4,99$", "White", "src", "Men")
-let hoodie = new Ad("Hoodie", "Clothing", "35,99$", "Black", "src", "Women")
-let hat = new Ad("Hat", "Clothing", "19,99$", "Gray", "src", "Unisex")
-let hat_2 = new Ad("Hat", "Clothing", "22,99$", "White", "src", "Unisex")
-let watch = new Ad("Watch", "Accessories", "59,99$", "Black", "src", "Men")
-let shirt_2 = new Ad("T-Shirt", "Clothing", "14,99$", "Pink", "src", "Women")
-let watch_2 = new Ad("Watch", "Accessories", "59,99$", "Gray", "src", "Women")
-let hoodie_2 = new Ad("Hoodie", "Clothing", "35,99$", "Yellow", "src", "Men")
+class Colors {
+
+  static get RED() {return "RED"; }
+  static get GREEN() {return "GREEN"; }
+  static get BLUE() {return "BLUE"; }
+  static get PINK() {return "PINK"; }
+  static get BROWN() {return "BROWN"; }
+  static get WHITE() {return "WHITE"; }
+  static get BLACK() {return "BLACK"; }
+  static get GRAY() {return "GRAY"; }
+  static get YELLOW() {return "YELLOW"; }
+  static get PURPLE() {return "PURPLE"; }
+  static get ORANGE() {return "ORANGE"; }
+  static get GOLD() {return "GOLD"; }
+  static get SILVER() {return "SILVER"; }
+  static get BRONZE() {return "BRONZE"; }
+}
+
+
+let shirt = new Ad("T-Shirt", "Clothing", "14,99$", [Colors.WHITE, Colors.RED], "src", "Men")
+let long_name = new Ad("This product has a super fkn long name", "Clothing", "4,99$", [Colors.WHITE], "src", "Men")
+let adodas = new Ad("Adodas Sleeve Hoodie Gray", "Clothing", "4,99$", [Colors.WHITE, Colors.GRAY], "src", "Men")
+let hoodie = new Ad("Hoodie", "Clothing", "35,99$", [Colors.WHITE, Colors.BLACK, Colors.GRAY, Colors.PINK], "src", "Women")
+let hat = new Ad("Hat", "Clothing", "19,99$", [Colors.GRAY], "src", "Unisex")
+let hat_2 = new Ad("Hat", "Clothing", "22,99$", [Colors.WHITE], "src", "Unisex")
+let watch = new Ad("Watch", "Accessories", "59,99$", [Colors.BLACK], "src", "Men")
+let shirt_2 = new Ad("T-Shirt", "Clothing", "14,99$", [Colors.PINK], "src", "Women")
+let watch_2 = new Ad("Watch", "Accessories", "59,99$", [Colors.GOLD, Colors.SILVER, Colors.BRONZE], "src", "Women")
+let hoodie_2 = new Ad("Hoodie", "Clothing", "35,99$", [Colors.WHITE, Colors.YELLOW], "src", "Men")
 
 let items = [
 ]
@@ -208,11 +227,31 @@ cartHeightFunction = function() {
             let newDiv = document.createElement("div")
             document.getElementById("cartMenu").getElementsByTagName("div")[0].appendChild(newDiv)
             aElement = document.createElement("a")
+            aElement.id = "cartItemLink"
             aElement.innerHTML = parsedCartArray[i].ad.name + " x " + parsedCartArray[i].quantity
             aElement.href = "/" + parsedCartArray[i].ad.name + ".html"
             newDiv.appendChild(aElement)
         }
     }
+}
+
+self.onclick = (event) => {
+    console.log("element pressed: " + event.target.id)
+    var id = event.target.id
+
+    if (id != "char" && id != "cart")
+    {
+        closeMenus()
+    }
+}
+
+closeMenus = () => {
+    document.getElementById("loginMenu").style.display = "none"
+    document.getElementById("cartMenu").style.display = "none"
+    document.getElementById("char").style.setProperty("--invert", "0%")
+    document.getElementById("cart").style.setProperty("--invertCart", "0%")
+    cartMenuClicked = false
+    loginMenuClicked = false
 }
 
 cartFunction = function() {
@@ -629,52 +668,51 @@ function loadArticles() {
                 img = document.createElement("img")
                 img.id = "img" + (i + 1)
                 item.appendChild(img)
-                h = document.createElement("h1")
-                h.textContent = "Product Name"
-                item.appendChild(h)
-                d = document.createElement("div")
-                item.appendChild(d)
-                p = document.createElement("p")
-                p.textContent = "Price $"
-                p.style.textAlign = "center"
-                p.id = "price" + (i + 1)
-                p.style.width = "49%"
-                cd = document.createElement("div")
-                cd.id = "colorDiv" + (i + 1)
-                s = document.createElement("p")
-                s.style.width = "2%"
-                s.textContent = "|"
-                s.style.color = "black"
-                p2 = document.createElement("p")
-                p2.textContent = "Color: "
-                p2.style.color = "black"
-                cd.appendChild(p2)
-                c = document.createElement("div")
-                c.id = "color" + (i + 1)
-                cd.appendChild(c)
-                d.appendChild(p)
-                d.appendChild(s)
-                d.appendChild(cd)
-                d.className = "colorPrice"
+                productTitle = document.createElement("h1")
+                item.appendChild(productTitle)
+                priceDiv = document.createElement("div")
+                priceDiv.className = "productPrice"
+                priceDiv.style.display = "flex"
+                priceDiv.style.height = "30px"
+                priceDiv.style.width = "75%"
+                item.appendChild(priceDiv)
+                price = document.createElement("p")
+                price.style.textAlign = "center"
+                price.id = "price" + (i + 1)
+                price.style.width = "100%"
+                item.appendChild(price)
+                colorDiv = document.createElement("div")
+                colorDiv.id = "colorDiv" + (i + 1)
+
+                var colors = String(items[i].color).split(",")
+
+                for(j = 0; j < colors.length; j++)
+                {
+                    console.log(colors[j])
+                    color = document.createElement("div")
+                    color.id = "color" + (j + 1)
+
+                    color.style.width = "25px"
+                    color.style.height = "25px"
+                    color.style.borderRadius = "100%"
+                    color.style.borderColor = "gray"
+                    color.style.borderStyle = "solid"
+                    color.style.borderWidth = "1px"
+                    color.style.backgroundColor = colors[j]
+                    colorDiv.appendChild(color)
+                }
+
+                priceDiv.appendChild(price)
+                item.appendChild(colorDiv)
                 document.getElementById("row" + (rowIndex - 1)).appendChild(item)
-                d.style.display = "flex"
-                d.style.height = "30px"
-                d.style.width = "75%"
-                document.getElementById("colorDiv" + (i + 1)).style.width = "49%"
+                document.getElementById("colorDiv" + (i + 1)).style.width = "100%"
                 document.getElementById("colorDiv" + (i + 1)).style.display = "flex"
                 document.getElementById("colorDiv" + (i + 1)).style.justifyContent = "center"
                 document.getElementById("colorDiv" + (i + 1)).style.marginBottom = "10px"
-                document.getElementById("color" + (i + 1)).style.width = "25px"
-                document.getElementById("color" + (i + 1)).style.height = "25px"
-                document.getElementById("color" + (i + 1)).style.borderRadius = "100%"
-                document.getElementById("color" + (i + 1)).style.borderColor = "gray"
-                document.getElementById("color" + (i + 1)).style.borderStyle = "solid"
-                document.getElementById("color" + (i + 1)).style.borderWidth = "1px"
         
                 document.getElementById("item" + (i + 1)).querySelector("h1").innerHTML = items[i].name
                 document.getElementById("item" + (i + 1)).querySelector("p").innerHTML = items[i].price
                 document.getElementById("img" + (i + 1)).style.backgroundImage = "url('img/" + items[i].name  + ".png')"
-                document.getElementById("color" + (i + 1)).style.backgroundColor = items[i].color
             }
         }
     
