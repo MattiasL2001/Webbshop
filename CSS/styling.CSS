@@ -371,7 +371,7 @@ select {
     width: calc(100% / 3);
     text-decoration: none;
     color: black;
-    flex-basis: calc(100% / 3.2);
+    flex-basis: calc(100% / 4.5);
     cursor: pointer;
 }
 
@@ -608,7 +608,7 @@ footer {
 
   @media only screen and (max-width: 950px) {
       .item {
-        flex-basis: calc(100% / 2);
+        flex-basis: calc(100% / 3);
       }
       #loginRegister {
         width: 50%;
@@ -638,10 +638,6 @@ footer {
 }
 
 @media only screen and (max-width: 400px) {
-    .item img {
-      height: 70%;
-      width: calc(350px * 0.7);
-    }
     #loginRegister {
         width: 90%;
     }

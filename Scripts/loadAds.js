@@ -1,10 +1,11 @@
-function Ad(name, category, price, color, image, gender) {
+function Ad(name, category, price, color, image, gender, url) {
     this.name = name
     this.category = category
     this.price = price
     this.color = color
     this.image = image
     this.gender = gender
+    this.url = url
 }
 
 function User(email, password, firstName, surName, birthDate) {
@@ -449,16 +450,17 @@ function resize() {
     searchArticles.style.backgroundColor = "White"
     searchArticles.style.width = "80%"
 
-    if (document.querySelector("body").clientWidth >= 950) {
-        objPerCol = 3
+    var clientWidth = document.querySelector("body").clientWidth
+
+    if (clientWidth >= 950) {
+        objPerCol = 4
 
         if (searchArticles != null) {
             searchArticles.style.justifyContent = "space-evenly"
         }
     }
-    else if (document.querySelector("body").clientWidth >= 600 &&
-        document.querySelector("body").clientWidth < 950) {
-        objPerCol = 2
+    else if (clientWidth >= 600 && clientWidth < 950) {
+        objPerCol = 3
         if (searchArticles != null) {
             searchArticles.style.justifyContent = "space-evenly"
         }
@@ -471,8 +473,8 @@ function resize() {
             itemElements[i].children[0].style.width = "350px * 0.4"
         }
     }
-    else if (document.querySelector("body").clientWidth < 600) {
-        objPerCol = 1
+    else if (clientWidth < 600) {
+        objPerCol = 2
         searchArticles.style.justifyContent = "space-evenly"
 
         document.getElementsByClassName("filter")[0].getElementsByTagName("option")[0].textContent = "Gender"
@@ -480,7 +482,8 @@ function resize() {
         document.getElementsByClassName("filter")[2].getElementsByTagName("option")[0].textContent = "Color"
         document.getElementsByClassName("filter")[3].getElementsByTagName("option")[0].textContent = "Sort"
     }
-    if (document.querySelector("body").clientWidth < 300) {
+    if (clientWidth <= 335) {
+        objPerCol = 1
         searchArticles.style.flexDirection = "column"
         searchArticles.style.backgroundColor = "rgb(245, 245, 245)"
         searchArticles.style.width = "100%"
@@ -603,6 +606,7 @@ function loadArticles() {
     
         let rowIndex = 1
     
+        //creates the rows in which the products will be contained
         for (i = 0; i < items.length; i++) {
             if (i == 0 || i % objPerCol == 0) {
                 row = document.createElement("div")
@@ -700,20 +704,16 @@ function loadArticles() {
             }
             else {
                 //checks how many products per row there are
-                rowLength = 0
-                for (l = 0; l < rows[i].childNodes.length; l++) {
+                for (rowLength = 0; rowLength < rows[i].childNodes.length; l++) {
                     rowLength++
                 }
                 //if there is more than 2 articles on row[i]
-                if (rowLength > 2 || (objPerCol == 2)) {
+                if (rowLength > 2) {
                     rows[i].style.justifyContent = "space-between"
                 }
                 //if there is 1 or 2 articles on row[i]
-                else if (objPerCol == 2) {
-                    rows[i].style.justifyContent = "space-evenly"
-                }
                 else {
-                    rows[i].style.justifyContent = "flex-start"
+                    rows[i].style.justifyContent = "space-evenly"
                 }
             }
         }
