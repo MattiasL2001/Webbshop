@@ -101,14 +101,8 @@ let cartItems = []
 
 for (i = 0; i < items.length; i++) {
 
-    if (window.location.pathname.includes(items[i].id)) {
-        // let description = document.getElementById("description")
-        // description.style.height = "269px"
-        // let selectElement = document.getElementById("quantity")
-        // description.getElementsByTagName("div")[0].getElementsByTagName("h2")[0].innerHTML = localStorage.getItem("productName")
-        // description.getElementsByTagName("div")[1].getElementsByTagName("h3")[0].innerHTML = localStorage.getItem("productGender")
-        // description.getElementsByTagName("div")[2].getElementsByTagName("h3")[0].innerHTML = localStorage.getItem("productPrice")
-        // document.getElementById("colorDiv").getElementsByTagName("div")[0].style.backgroundColor = localStorage.getItem("productColor")
+    if (window.location.pathname.includes(items[i].id &&
+        !window.location.pathname.includes("index"))) {
 
         let description = document.getElementById("description")
         description.style.height = "269px"
